@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dispenser : MonoBehaviour
 {
-    public Object objectToSpawn;
+    public GameObject objectToSpawn;
 
     void Start()
     {
