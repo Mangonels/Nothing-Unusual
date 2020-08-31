@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 public class Door : MonoBehaviour
 {
     void Start()
@@ -18,6 +15,7 @@ public class Door : MonoBehaviour
     {
         if (col.gameObject.tag == "Object")
         {
+            //Remove object
             Destroy(col.gameObject);
         }
     }
