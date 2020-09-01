@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6065562407401342781}
   - component: {fileID: 6699933310014335810}
   m_Layer: 0
-  m_Name: GridBox
+  m_Name: Box_Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

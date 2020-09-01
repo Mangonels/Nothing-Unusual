@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class Game : MonoBehaviour
+public class GameBehaviour : MonoBehaviour
 {
     void Start()
     {
-        
+        Cursor.visible = false;
     }
 
     void Update()
