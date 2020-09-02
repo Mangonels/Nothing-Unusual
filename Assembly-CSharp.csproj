@@ -59,8 +59,9 @@
     <Compile Include="Assets\Scripts\GameBehaviour.cs" />
     <Compile Include="Assets\Scripts\Dispenser.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
-    <Compile Include="Assets\Scripts\RoomGrid.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\RoomGrid.cs" />
+    <Compile Include="Assets\Scripts\PlayerHolding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

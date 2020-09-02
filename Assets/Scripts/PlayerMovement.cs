@@ -4,16 +4,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController cControllerRef; //Character controller reference
-    Vector3 fullMovement; //Movement to be applied to character controller
+    [SerializeField]
+    private Vector3 playerMovement;
     public float speed = 8f;
-    public float jumpHeight = 3f;
-    public float gravity = -9.81f;
-    Vector3 velocity;
-
-    public Transform groundCkeck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-    bool isGrounded;
+    public float jumpHeight = 2.5f;
+    public float gravity = -18f;
+    [SerializeField]
+    private Vector3 velocity;
 
     private CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
     Vector3 camdir; //Camera direction/forward vector
@@ -26,14 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCkeck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0) 
-        {
-            velocity.y = -2f;
-        }
-
-        //Update forward and right camera vectors for referencing
+        //Update forward and right camera vectors for references
         camdir = cVCRef.State.CorrectedOrientation * Vector3.forward;
         camright = cVCRef.State.CorrectedOrientation * Vector3.right;
         //Debug.Log("Camera direction vector:" + camdir);
@@ -45,23 +35,32 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        //-----------------------------------------------------
         //Calculate and apply movement to character controller:
+        //-----------------------------------------------------
+
         //The part of the movement influenced by the player's horizontal move input is relative to the camera vectors
         Vector2 horizontalInputMove = new Vector2((camright * x + camdir * z).x, (camright * x + camdir * z).z);
-        //Full movement is sumed up here
-        fullMovement = new Vector3(horizontalInputMove.x, 0.0f, horizontalInputMove.y);
+        
+        //Player movement calculation
+        playerMovement = new Vector3(horizontalInputMove.x, 0.0f, horizontalInputMove.y);
 
-        cControllerRef.Move(fullMovement * speed * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump") && isGrounded) 
+        if (Input.GetButtonDown("Jump") && cControllerRef.isGrounded) 
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        //Gravity velocity calculation
+        if (cControllerRef.isGrounded && velocity.y < 0) //Being grounded stops y velocity
+        {
+            velocity.y -= Mathf.Abs(gravity); //Cancel gravity
+        }
+        else velocity.y += gravity * Time.deltaTime; //Being airborne increases negative y velocity due to gravity
 
+        //Apply player movement
+        cControllerRef.Move(playerMovement * speed * Time.deltaTime);
+
+        //Apply other forces
         cControllerRef.Move(velocity * Time.deltaTime);
-
-
     }
 }
