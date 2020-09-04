@@ -31,10 +31,12 @@ public class PlayerHolding : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag == "PickableObject") //Game object is a PickableObject
                     {
-                        //Debug.Log("Hit game object: " + hit.collider.gameObject.name);
-                        Destroy(hit.collider.gameObject);
-                        objects[amountOfHeldObjects].SetActive(true);
-                        amountOfHeldObjects++;
+                        if (amountOfHeldObjects < objects.Length) 
+                        {
+                            Destroy(hit.collider.gameObject);
+                            objects[amountOfHeldObjects].SetActive(true);
+                            amountOfHeldObjects++;
+                        }
                     }
                 }
             }
@@ -43,10 +45,12 @@ public class PlayerHolding : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) //Right click
         {
             //Drop object
-            amountOfHeldObjects--;
-            objects[amountOfHeldObjects].SetActive(false);
-            //Drop it in current grid box... TODO
+            if (amountOfHeldObjects > 0) 
+            {
+                amountOfHeldObjects--;
+                objects[amountOfHeldObjects].SetActive(false);
+                //Drop it in current grid box... TODO
+            }
         }
-
     }
 }

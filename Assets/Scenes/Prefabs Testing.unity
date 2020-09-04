@@ -1152,6 +1152,7 @@ MonoBehaviour:
   - {fileID: 1715363286}
   - {fileID: 561303901}
   maxGrabDistance: 3
+  amountOfHeldObjects: 0
   cVCRef: {fileID: 1848269048}
 --- !u!1 &1522861727
 GameObject:
@@ -1755,6 +1756,10 @@ PrefabInstance:
     - target: {fileID: 8425857654230718530, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
       propertyPath: dropSamples
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425857654230718530, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+      propertyPath: maxDroppedSamples
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
