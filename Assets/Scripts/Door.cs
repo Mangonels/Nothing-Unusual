@@ -13,7 +13,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Object")
+        if (col.gameObject.tag == "HeldObject")
         {
             //Remove object
             Destroy(col.gameObject);

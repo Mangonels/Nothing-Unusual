@@ -3,26 +3,31 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float gravity = -18f;
+
     public CharacterController cControllerRef; //Character controller reference
-    [SerializeField]
-    private Vector3 playerMovement;
+    [SerializeField] private Vector3 playerMovement; //Picks up movement input as movement
     public float speed = 8f;
     public float jumpHeight = 2.5f;
-    public float gravity = -18f;
-    [SerializeField]
-    private Vector3 velocity;
+    public float airBoostStrength = 18f;
+    public int maxAirboosts = 3;
+    [SerializeField] private int usedAirboosts = 0;
+    [SerializeField] private Vector3 forcesMovement; //Picks up all additional speeds
 
-    private CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
+    public CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
     Vector3 camdir; //Camera direction/forward vector
     Vector3 camright; //Camera right vector
 
     void Start()
     {
-        cVCRef = transform.Find("FirstPersonCamera").GetComponent<CinemachineVirtualCamera>();
+
     }
 
     void Update()
     {
+        //----------------------
+        //Get camera information
+        //----------------------
         //Update forward and right camera vectors for references
         camdir = cVCRef.State.CorrectedOrientation * Vector3.forward;
         camright = cVCRef.State.CorrectedOrientation * Vector3.right;
@@ -31,7 +36,10 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawLine(cVCRef.transform.position, cVCRef.transform.position + camdir, Color.red);
         //Debug.DrawLine(cVCRef.transform.position, cVCRef.transform.position + camright, Color.blue);
 
+        //---------
         //Get input
+        //---------
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -45,22 +53,52 @@ public class PlayerMovement : MonoBehaviour
         //Player movement calculation
         playerMovement = new Vector3(horizontalInputMove.x, 0.0f, horizontalInputMove.y);
 
-        if (Input.GetButtonDown("Jump") && cControllerRef.isGrounded) 
+        if (Input.GetButtonDown("Jump") && cControllerRef.isGrounded) //Jumping from ground
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            //Jump movement calculation
+            forcesMovement.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        //Gravity velocity calculation
-        if (cControllerRef.isGrounded && velocity.y < 0) //Being grounded stops y velocity
+        if (Input.GetButtonDown("Jump") && !cControllerRef.isGrounded) //Jumping airborne
         {
-            velocity.y -= Mathf.Abs(gravity); //Cancel gravity
+            if (usedAirboosts < maxAirboosts) 
+            {
+                usedAirboosts++;
+                //Air movement force movement boost calculation
+                forcesMovement.z = playerMovement.z * airBoostStrength;
+                forcesMovement.x = playerMovement.x * airBoostStrength;
+                forcesMovement.y = Mathf.Sqrt(jumpHeight * -2f * gravity); //This is pretty much the same as a second jump impulse
+            }
         }
-        else velocity.y += gravity * Time.deltaTime; //Being airborne increases negative y velocity due to gravity
+
+        if (cControllerRef.isGrounded) //Character controler grounded
+        {
+            usedAirboosts = 0; //Reset airboost availability
+
+            //Being grounded reduces airBoost in x & z due to ground friction
+            if (forcesMovement.x != 0f)
+            {
+                forcesMovement.x = 0f; //Stop any force movement in X due to ground friction
+            }
+            if (forcesMovement.z != 0f)
+            {
+                forcesMovement.z = 0f; //Stop any force movement in Z due to ground friction
+            }
+            if (forcesMovement.y < 0)
+            {
+                forcesMovement.y -= Mathf.Abs(gravity); //Cancel gravity
+            }
+        }
+        else //Character controller airborne
+        {
+            //Increase negative y forcesMovement due to gravity
+            forcesMovement.y += gravity * Time.deltaTime; 
+        } 
 
         //Apply player movement
         cControllerRef.Move(playerMovement * speed * Time.deltaTime);
 
-        //Apply other forces
-        cControllerRef.Move(velocity * Time.deltaTime);
+        //Apply other movements derived from forces
+        cControllerRef.Move(forcesMovement * Time.deltaTime);
     }
 }
