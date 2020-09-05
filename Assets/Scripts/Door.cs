@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 public class Door : MonoBehaviour
 {
+    public PlayerHolding holdInformationScriptRef; //References the script which contained held objects information
     void Start()
     {
         
@@ -13,10 +14,10 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "HeldObject")
+        if (col.gameObject.tag == "Player")
         {
-            //Remove object
-            Destroy(col.gameObject);
+            //"Remove" held objects
+            holdInformationScriptRef.RemoveAllHeldObjects();
         }
     }
 }

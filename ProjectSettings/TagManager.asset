@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PickableObject
   - HeldObject
+  - GridBox
   layers:
   - Default
   - TransparentFX

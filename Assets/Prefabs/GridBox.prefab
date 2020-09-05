@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6065562407401342781}
   - component: {fileID: 6699933310014335810}
   m_Layer: 0
-  m_Name: Box_Grid
-  m_TagString: Untagged
+  m_Name: GridBox
+  m_TagString: GridBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dbf6d3f55b2d044bfb1597c4d1b0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxItems: 5
+  maxItemsBeforeGameOver: 5
   currentItemAmmount: 0
 --- !u!1001 &4169901108561857099
 PrefabInstance:
@@ -81,6 +81,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
       propertyPath: gridBox
+      value: 
+      objectReference: {fileID: 6699933310014335810}
+    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
+      propertyPath: gridBoxScriptRef
       value: 
       objectReference: {fileID: 6699933310014335810}
     - target: {fileID: 5874314818314780220, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
