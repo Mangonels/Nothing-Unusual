@@ -2,8 +2,7 @@
 public class Dispenser : MonoBehaviour
 {
     public GameObject objectToSpawn; //The game object the dispenser will spawn
-
-
+    public GridBox gridBox; //GridBox script to which spawned objects will be registered
 
     //--------------
     // Debug
@@ -49,5 +48,6 @@ public class Dispenser : MonoBehaviour
     public void Drop()
     {
         Instantiate(objectToSpawn, transform.position, Quaternion.Euler(0, 0, 0));
+        gridBox.IncreaseCurrentItemAmmount();
     }
 }

@@ -58,6 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dbf6d3f55b2d044bfb1597c4d1b0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxItems: 5
+  currentItemAmmount: 0
 --- !u!1001 &4169901108561857099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,6 +71,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
+      propertyPath: dropSamples
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
+      propertyPath: maxDroppedSamples
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
+      propertyPath: gridBox
+      value: 
+      objectReference: {fileID: 6699933310014335810}
     - target: {fileID: 5874314818314780220, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
