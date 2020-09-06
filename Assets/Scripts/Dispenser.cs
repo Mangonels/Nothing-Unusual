@@ -4,7 +4,7 @@ public class Dispenser : MonoBehaviour
     public GameObject objectToSpawn; //The game object the dispenser will spawn
     public GameObject gridFloorReference; //Used for referencing transform.y position for player drop calculations
     public float standardObjectHeightAsReference = 1f; //The standard height of an object, used for calculating drop onto stack from player, altitudes
-    public float adjustedDropExtraHeight = 0.6f; //Slight extra height applied to player item dropping above the highest item on the GridBox stack
+    public float adjustedDropHeight = 0.6f; //Slight extra height applied to player item dropping above the highest item on the GridBox stack
     public GridBox gridBoxScriptRef; //GridBox script to which spawned objects will be registered
 
     //--------------
@@ -52,13 +52,15 @@ public class Dispenser : MonoBehaviour
     {
         if (!adjusted)
         {
+            //Drop item normally from dispenser
             Instantiate(objectToSpawn, transform.position, Quaternion.Euler(0, 0, 0));
-            gridBoxScriptRef.IncreaseCurrentItemAmmount();
+            gridBoxScriptRef.IncreaseCurrentObjectAmmount();
         }
         else 
         {
-            Instantiate(objectToSpawn, new Vector3(transform.position.x, gridFloorReference.transform.position.y + (standardObjectHeightAsReference * gridBoxScriptRef.GetCurrentObjectsAmmount()) + adjustedDropExtraHeight, transform.position.z), Quaternion.Euler(0, 0, 0));
-            gridBoxScriptRef.IncreaseCurrentItemAmmount();
+            //Drop item on top of highest (player drop)
+            Instantiate(objectToSpawn, new Vector3(transform.position.x, gridFloorReference.transform.position.y + (standardObjectHeightAsReference * gridBoxScriptRef.GetCurrentObjectsAmmount()) + adjustedDropHeight, transform.position.z), Quaternion.Euler(0, 0, 0));
+            gridBoxScriptRef.IncreaseCurrentObjectAmmount();
         }
     }
 }

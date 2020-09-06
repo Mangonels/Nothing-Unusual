@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5513844490889645336}
   - component: {fileID: 5513844490889645339}
   - component: {fileID: 5513844490889645338}
+  - component: {fileID: 8168077819965378380}
   m_Layer: 0
   m_Name: Object_GridAligned
   m_TagString: PickableObject
@@ -112,3 +113,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &8168077819965378380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513844490889645341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dccda69414ebfa4d99d1f10a3d96f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2764738497345165183}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7964695205117459271}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 7964695205117459271}
   - component: {fileID: 6065562407401342781}
   - component: {fileID: 6699933310014335810}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridBox
   m_TagString: GridBox
   m_Icon: {fileID: 0}
@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dbf6d3f55b2d044bfb1597c4d1b0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxItemsBeforeGameOver: 5
-  currentItemAmmount: 0
+  maxObjectsBeforeGameOver: 5
+  currentObjectAmmount: 0
 --- !u!1001 &4169901108561857099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,17 +103,9 @@ PrefabInstance:
       value: Dispenser
       objectReference: {fileID: 0}
     - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
-      propertyPath: dropSamples
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
-      propertyPath: maxDroppedSamples
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
-      propertyPath: gridBox
+      propertyPath: gridFloorReference
       value: 
-      objectReference: {fileID: 6699933310014335810}
+      objectReference: {fileID: 2764738497345165183}
     - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
       propertyPath: gridBoxScriptRef
       value: 

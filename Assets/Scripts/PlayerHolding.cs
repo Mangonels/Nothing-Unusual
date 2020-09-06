@@ -7,7 +7,7 @@ public class PlayerHolding : MonoBehaviour
     public float maxGrabDistance = 3.0f;
     [SerializeField] private int amountOfHeldObjects = 0;
     public Transform GridBoxCollisionCheckPointRef; //Transform containing reference position from which we check if we're colliding with a "collidingGridBox" and update such reference.
-    [SerializeField] Collider collidingGridBox; //The box grid's collider the detection sphere for held objects is colliding with by trigger
+    [SerializeField] Collider collidingGridBox; //The box grid's collider the detection box for held objects is colliding with by trigger
 
     public CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
     void Start()
@@ -48,12 +48,12 @@ public class PlayerHolding : MonoBehaviour
             //Drop object
             if (amountOfHeldObjects > 0)
             {
-                amountOfHeldObjects--;
-                objects[amountOfHeldObjects].SetActive(false);
                 //Drop it in first current detected grid box from sphere collider
                 Collider[] collidingGridBoxes = Physics.OverlapBox(GridBoxCollisionCheckPointRef.position, new Vector3(0.001f, 0.001f, 0.001f), Quaternion.identity, LayerMask.GetMask("GridBoxes"));
                 if (collidingGridBoxes.Length > 0) //There was one or more grid boxes?
                 {
+                    amountOfHeldObjects--;
+                    objects[amountOfHeldObjects].SetActive(false); //Hide it from held view
                     collidingGridBox = collidingGridBoxes[0]; //Pick only the first one found (should be only one anyway, but better safe than sorry)
                     //Previously set the GameObject to be dropped                                                                  ( TO-DO )
                     collidingGridBox.gameObject.GetComponentInChildren<Dispenser>().Drop(true);
