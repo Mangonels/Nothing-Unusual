@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerHolding : MonoBehaviour
 {
-    public GameObject[] objects;
+    public GameObject[] heldObjects;
     public float maxGrabDistance = 3.0f;
     [SerializeField] private int amountOfHeldObjects = 0;
     public Transform GridBoxCollisionCheckPointRef; //Transform containing reference position from which we check if we're colliding with a "collidingGridBox" and update such reference.
@@ -32,10 +32,10 @@ public class PlayerHolding : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag == "PickableObject") //Game object is a PickableObject
                     {
-                        if (amountOfHeldObjects < objects.Length)
+                        if (amountOfHeldObjects < heldObjects.Length)
                         {
                             Destroy(hit.collider.gameObject);
-                            objects[amountOfHeldObjects].SetActive(true);
+                            heldObjects[amountOfHeldObjects].SetActive(true);
                             amountOfHeldObjects++;
                         }
                     }
@@ -53,7 +53,7 @@ public class PlayerHolding : MonoBehaviour
                 if (collidingGridBoxes.Length > 0) //There was one or more grid boxes?
                 {
                     amountOfHeldObjects--;
-                    objects[amountOfHeldObjects].SetActive(false); //Hide it from held view
+                    heldObjects[amountOfHeldObjects].SetActive(false); //Hide it from held view
                     collidingGridBox = collidingGridBoxes[0]; //Pick only the first one found (should be only one anyway, but better safe than sorry)
                     //Previously set the GameObject to be dropped                                                                  ( TO-DO )
                     collidingGridBox.gameObject.GetComponentInChildren<Dispenser>().Drop(true);
@@ -61,11 +61,16 @@ public class PlayerHolding : MonoBehaviour
             }
         }
     }
+
+    public GameObject[] GetHeldObjectsArray() 
+    {
+        return heldObjects;
+    }
     public void RemoveAllHeldObjects() //Sets all held objects to inactive (gives the appearance that we're holding nothing)
     {
-        for (int i = 0; i < objects.Length; i++)
+        for (int i = 0; i < heldObjects.Length; i++)
         {
-            objects[i].SetActive(false);
+            heldObjects[i].SetActive(false);
             amountOfHeldObjects = 0;
         }
     }

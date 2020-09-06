@@ -3,11 +3,15 @@
 public class GridAlignedObject : MonoBehaviour
 {
     [SerializeField] Collider collidingGridBox; //The box grid's collider the detection box for held objects is colliding with by trigger
+    public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
+
+    public ObjectsData.objectTypes objectType = ObjectsData.objectTypes.NONE; //Type this object should be, with visual implications
 
     void Start()
     {
-        
+
     }
+
 
     void Update()
     {
