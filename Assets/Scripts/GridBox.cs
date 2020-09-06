@@ -34,4 +34,9 @@ public class GridBox : MonoBehaviour
 
         }
     }
+
+    public int GetCurrentObjectsAmmount() 
+    {
+        return currentItemAmmount;
+    }
 }

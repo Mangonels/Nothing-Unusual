@@ -2,6 +2,9 @@
 public class Dispenser : MonoBehaviour
 {
     public GameObject objectToSpawn; //The game object the dispenser will spawn
+    public GameObject gridFloorReference; //Used for referencing transform.y position for player drop calculations
+    public float standardObjectHeightAsReference = 1f; //The standard height of an object, used for calculating drop onto stack from player, altitudes
+    public float adjustedDropExtraHeight = 0.6f; //Slight extra height applied to player item dropping above the highest item on the GridBox stack
     public GridBox gridBoxScriptRef; //GridBox script to which spawned objects will be registered
 
     //--------------
@@ -32,7 +35,7 @@ public class Dispenser : MonoBehaviour
             if (timer >= timeToDrop && currentDroppedSamples < maxDroppedSamples) 
             {
                 timer = 0.0f;
-                Drop();
+                Drop(false);
                 currentDroppedSamples++;
             }
         }
@@ -44,10 +47,18 @@ public class Dispenser : MonoBehaviour
         objectToSpawn = obj;
     }
 
-    //Instantly drops object dispenser should spawn
-    public void Drop()
+    //Instantly drops object dispenser (or player drop, usually marked by adjusted = true) should spawn (set adjusted for dropping close to the top of highest object)
+    public void Drop(bool adjusted)
     {
-        Instantiate(objectToSpawn, transform.position, Quaternion.Euler(0, 0, 0));
-        gridBoxScriptRef.IncreaseCurrentItemAmmount();
+        if (!adjusted)
+        {
+            Instantiate(objectToSpawn, transform.position, Quaternion.Euler(0, 0, 0));
+            gridBoxScriptRef.IncreaseCurrentItemAmmount();
+        }
+        else 
+        {
+            Instantiate(objectToSpawn, new Vector3(transform.position.x, gridFloorReference.transform.position.y + (standardObjectHeightAsReference * gridBoxScriptRef.GetCurrentObjectsAmmount()) + adjustedDropExtraHeight, transform.position.z), Quaternion.Euler(0, 0, 0));
+            gridBoxScriptRef.IncreaseCurrentItemAmmount();
+        }
     }
 }

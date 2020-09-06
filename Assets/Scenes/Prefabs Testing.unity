@@ -1449,6 +1449,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1829122112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4498788513338336905, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+  m_PrefabInstance: {fileID: 5114217179001146392}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2113138705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1571,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridBox
       objectReference: {fileID: 0}
+    - target: {fileID: 4498788513338336905, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6065562407401342781, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -1616,14 +1625,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8425857654230718530, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
       propertyPath: maxDroppedSamples
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8425857654230718530, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
       propertyPath: dropSamples
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425857654230718530, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+      propertyPath: gridBoxObjectRef
+      value: 
+      objectReference: {fileID: 1829122112}
+    - target: {fileID: 8425857654230718530, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+      propertyPath: gridFloorReference
+      value: 
+      objectReference: {fileID: 5114217179001146393}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+--- !u!1 &5114217179001146393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2764738497345165183, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
+  m_PrefabInstance: {fileID: 5114217179001146392}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5263348743195429391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1631,6 +1653,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3099175979369667865, guid: 80a1f6fbd2cd8cf4a9e575df91c9866a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5263348743062439027, guid: 80a1f6fbd2cd8cf4a9e575df91c9866a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.2

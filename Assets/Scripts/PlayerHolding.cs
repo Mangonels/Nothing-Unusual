@@ -1,7 +1,6 @@
 ﻿using Cinemachine;
 using UnityEngine;
 
-
 public class PlayerHolding : MonoBehaviour
 {
     public GameObject[] objects;
@@ -13,7 +12,7 @@ public class PlayerHolding : MonoBehaviour
     public CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -33,7 +32,7 @@ public class PlayerHolding : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag == "PickableObject") //Game object is a PickableObject
                     {
-                        if (amountOfHeldObjects < objects.Length) 
+                        if (amountOfHeldObjects < objects.Length)
                         {
                             Destroy(hit.collider.gameObject);
                             objects[amountOfHeldObjects].SetActive(true);
@@ -43,7 +42,7 @@ public class PlayerHolding : MonoBehaviour
                 }
             }
         }
-            
+
         if (Input.GetMouseButtonDown(1)) //Right click
         {
             //Drop object
@@ -51,32 +50,20 @@ public class PlayerHolding : MonoBehaviour
             {
                 amountOfHeldObjects--;
                 objects[amountOfHeldObjects].SetActive(false);
-                //Drop it in current detected grid box from sphere collider
-                //collidingGridBox
+                //Drop it in first current detected grid box from sphere collider
+                Collider[] collidingGridBoxes = Physics.OverlapBox(GridBoxCollisionCheckPointRef.position, new Vector3(0.001f, 0.001f, 0.001f), Quaternion.identity, LayerMask.GetMask("GridBoxes"));
+                if (collidingGridBoxes.Length > 0) //There was one or more grid boxes?
+                {
+                    collidingGridBox = collidingGridBoxes[0]; //Pick only the first one found (should be only one anyway, but better safe than sorry)
+                    //Previously set the GameObject to be dropped                                                                  ( TO-DO )
+                    collidingGridBox.gameObject.GetComponentInChildren<Dispenser>().Drop(true);
+                }
             }
         }
     }
-    private void OnTriggerEnter(Collider col)
-    {
-        Debug.Log("Trigger box entered other collider: " + col.tag);
-        if (col.gameObject.tag == "GridBox")
-        {
-            Debug.Log("Trigger box entered GridBox");
-            collidingGridBox = col; //The ObjectHolding's trigger sphere has entered collision with a GridBox's BoxCollider, we register it as current droppable grid box from it's collider.
-        }
-    }
-    private void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "GridBox")
-        {
-            Debug.Log("Trigger box left GridBox");
-            collidingGridBox = null; //The ObjectHolding's trigger sphere has left collision with a GridBox's BoxCollider, we unregister it as current droppable grid box from it's collider.
-        }
-    }
-
     public void RemoveAllHeldObjects() //Sets all held objects to inactive (gives the appearance that we're holding nothing)
     {
-        for (int i = 0; i < objects.Length; i++) 
+        for (int i = 0; i < objects.Length; i++)
         {
             objects[i].SetActive(false);
             amountOfHeldObjects = 0;
