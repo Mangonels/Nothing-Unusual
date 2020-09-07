@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Prefabs Testing.unity
+- path: Assets/Scenes/Nothing Unusual.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
