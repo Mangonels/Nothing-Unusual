@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
     [SerializeField] private bool wantsObjects; //Is this door accepting objects?
     [SerializeField] private bool wantsThemInOrder; //Does the door want the objects to be presented in the same stack order?
     [SerializeField] private ObjectsData.objectTypes[] wantedObjectTypes; //Current wanted objects by the door
-
+    public GameObject[] requestDisplays;
     
     void Start()
     {

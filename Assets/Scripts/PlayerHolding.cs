@@ -36,9 +36,9 @@ public class PlayerHolding : MonoBehaviour
                     {
                         if (amountOfHeldObjects < heldObjects.Length) //Can we hold any more objects?
                         {
-                            Vector3 heldSlotPos = heldObjects[amountOfHeldObjects].transform.position;
+                            Vector3 holdSlotPos = heldObjects[amountOfHeldObjects].transform.position;
                             Destroy(heldObjects[amountOfHeldObjects]); //Remove old held game object
-                            GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[(int)hit.collider.gameObject.GetComponent<GridAlignedObject>().objectType], heldSlotPos, Quaternion.identity, transform); //Instance new substituting held object, we search for the right one in the objectsGameObjects_Held dictionary by using the objectType enum as position
+                            GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[(int)hit.collider.gameObject.GetComponent<GridAlignedObject>().objectType], holdSlotPos, Quaternion.Euler(0f, 0f, 0f), transform); //Instance new substituting held object, we search for the right one in the objectsGameObjects_Held dictionary by using the objectType enum as position
                             heldObjects[amountOfHeldObjects] = objectInstantiated; //Attatch reference to new held object in heldObjects array
                             Destroy(hit.collider.gameObject); //Remove grid aligned object
                             amountOfHeldObjects++;
@@ -60,7 +60,8 @@ public class PlayerHolding : MonoBehaviour
                     amountOfHeldObjects--;
                     Vector3 heldSlotPos = heldObjects[amountOfHeldObjects].transform.position;
                     Destroy(heldObjects[amountOfHeldObjects]); //Remove old held game object
-                    GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[0], heldSlotPos, Quaternion.identity, transform); //Instance new substituting held object (NONE, Slot 0)
+                    GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[0], heldSlotPos, Quaternion.Euler(0f, 0f, 0f), transform); //Instance new substituting held object (NONE, in objectGameObjects_Held[0])
+                    heldObjects[amountOfHeldObjects] = objectInstantiated; //Attatch reference to new held object in heldObjects array
                     collidingGridBox = collidingGridBoxes[0]; //Pick only the first one found (should be only one anyway, but better safe than sorry)
                     collidingGridBox.gameObject.GetComponentInChildren<Dispenser>().Drop(true);
                 }
