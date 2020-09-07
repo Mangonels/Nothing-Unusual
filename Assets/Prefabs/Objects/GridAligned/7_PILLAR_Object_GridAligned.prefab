@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.009505231, y: 0.009505231, z: 0.009999998}
-  m_Center: {x: -2.3283064e-10, y: -2.328306e-10, z: -4.656612e-10}
+  m_Size: {x: 0.0086863255, y: 0.008576925, z: 0.009999998}
+  m_Center: {x: 0.000024916231, y: 0.000028233826, z: -5.960465e-10}
 --- !u!54 &8365898959312831200
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,4 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collidingGridBox: {fileID: 0}
   objectsDataRef: {fileID: 0}
-  objectType: 0
+  objectType: 7
