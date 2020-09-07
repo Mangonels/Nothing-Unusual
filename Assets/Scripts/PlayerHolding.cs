@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerHolding : MonoBehaviour
 {
+    public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
+
     public GameObject[] heldObjects;
     public float maxGrabDistance = 3.0f;
     [SerializeField] private int amountOfHeldObjects = 0;
@@ -32,10 +34,13 @@ public class PlayerHolding : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag == "PickableObject") //Game object is a PickableObject
                     {
-                        if (amountOfHeldObjects < heldObjects.Length)
+                        if (amountOfHeldObjects < heldObjects.Length) //Can we hold any more objects?
                         {
-                            Destroy(hit.collider.gameObject);
-                            heldObjects[amountOfHeldObjects].SetActive(true);
+                            Vector3 heldSlotPos = heldObjects[amountOfHeldObjects].transform.position;
+                            Destroy(heldObjects[amountOfHeldObjects]); //Remove old held game object
+                            GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[(int)hit.collider.gameObject.GetComponent<GridAlignedObject>().objectType], heldSlotPos, Quaternion.identity, transform); //Instance new substituting held object, we search for the right one in the objectsGameObjects_Held dictionary by using the objectType enum as position
+                            heldObjects[amountOfHeldObjects] = objectInstantiated; //Attatch reference to new held object in heldObjects array
+                            Destroy(hit.collider.gameObject); //Remove grid aligned object
                             amountOfHeldObjects++;
                         }
                     }
@@ -53,9 +58,10 @@ public class PlayerHolding : MonoBehaviour
                 if (collidingGridBoxes.Length > 0) //There was one or more grid boxes?
                 {
                     amountOfHeldObjects--;
-                    heldObjects[amountOfHeldObjects].SetActive(false); //Hide it from held view
+                    Vector3 heldSlotPos = heldObjects[amountOfHeldObjects].transform.position;
+                    Destroy(heldObjects[amountOfHeldObjects]); //Remove old held game object
+                    GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[0], heldSlotPos, Quaternion.identity, transform); //Instance new substituting held object (NONE, Slot 0)
                     collidingGridBox = collidingGridBoxes[0]; //Pick only the first one found (should be only one anyway, but better safe than sorry)
-                    //Previously set the GameObject to be dropped                                                                  ( TO-DO )
                     collidingGridBox.gameObject.GetComponentInChildren<Dispenser>().Drop(true);
                 }
             }
@@ -66,11 +72,14 @@ public class PlayerHolding : MonoBehaviour
     {
         return heldObjects;
     }
-    public void RemoveAllHeldObjects() //Sets all held objects to inactive (gives the appearance that we're holding nothing)
+    public void RemoveAllHeldObjects() //Sets all held objects to NONE (gives the appearance that we're holding nothing)
     {
         for (int i = 0; i < heldObjects.Length; i++)
         {
-            heldObjects[i].SetActive(false);
+            Vector3 heldSlotPos = heldObjects[i].transform.position;
+            GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[0], heldSlotPos, Quaternion.identity, transform); //Instance new substituting held object (NONE, Slot 0)
+            Destroy(heldObjects[i]); //Delete old held Object
+            heldObjects[i] = objectInstantiated; //New held Object reference to the new NONE object
             amountOfHeldObjects = 0;
         }
     }
