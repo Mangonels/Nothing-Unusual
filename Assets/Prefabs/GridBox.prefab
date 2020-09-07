@@ -110,6 +110,10 @@ PrefabInstance:
       propertyPath: gridBoxScriptRef
       value: 
       objectReference: {fileID: 6699933310014335810}
+    - target: {fileID: 5562189716951650825, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
+      propertyPath: objectToSpawn
+      value: 
+      objectReference: {fileID: 1283803685165090968, guid: 99aeecd1339790b4398e3106273dc6c4, type: 3}
     - target: {fileID: 5874314818314780220, guid: 8ff213e88ef7e5546ae812c905b55c9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
