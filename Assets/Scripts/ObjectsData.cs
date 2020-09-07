@@ -6,14 +6,25 @@ public class ObjectsData : MonoBehaviour
     public enum objectTypes
     {
         NONE,
-        HOURGLASS,
-        SQUARE_WEIGHT,
-        TENNISBALL,
-        HYPERCUBE,
-        WEIGHT,
-        DORIC_PILLAR,
-        CUBE,
-        TETRAS
+        ATOM,
+        BASE,
+        CONNECTOR,
+        CONTAINER,
+        DARKMATTER,
+        FRACTAL,
+        MAGIC_ARTIFACT,
+        MAGNETRON,
+        NINJA,
+        ORB,
+        ORBOLOID,
+        PILLAR,
+        POTION,
+        PRISM,
+        RINGS,
+        SIMPLE,
+        SUPPORT,
+        TETRAS,
+        TORNADO
     };
 
     public Material[] objectMaterial_DoorDisplay; //Contains all graphics for the door displays in same order as each enum "objectTypes"
