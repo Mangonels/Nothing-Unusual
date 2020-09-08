@@ -234,11 +234,11 @@ MonoBehaviour:
   wantsThemInOrder: 0
   wantedObjectTypes: 
   requestDisplays:
-  - {fileID: 7964207178246670105}
-  - {fileID: 6495033269529413327}
-  - {fileID: 1121441354716411207}
-  - {fileID: 6099251308059485401}
-  - {fileID: 8754860849144520413}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5340487634822618210
 GameObject:
   m_ObjectHideFlags: 0

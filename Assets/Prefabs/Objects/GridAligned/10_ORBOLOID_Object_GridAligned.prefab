@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4364578174607884732}
   - component: {fileID: 3642116156590632347}
   - component: {fileID: 3184092198087110176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 10_ORBOLOID_Object_GridAligned
   m_TagString: PickableObject
   m_Icon: {fileID: 0}

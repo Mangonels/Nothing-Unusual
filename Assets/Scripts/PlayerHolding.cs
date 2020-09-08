@@ -28,22 +28,16 @@ public class PlayerHolding : MonoBehaviour
             RaycastHit hit;
             Ray ray = new Ray(cVCRef.transform.position, cVCRef.State.CorrectedOrientation * Vector3.forward);
             //Debug.DrawRay(cVCRef.transform.position, (cVCRef.State.CorrectedOrientation * Vector3.forward) * 100, Color.red, 2f);
-            if (Physics.Raycast(ray, out hit)) //Raycast hits game object
+            if (Physics.Raycast(ray, out hit, maxGrabDistance, LayerMask.GetMask("Pickable"))) //Raycast hits Pickable Object
             {
-                if (hit.distance <= maxGrabDistance) //Hit detection is within "maxGrabDistance"
+                if (amountOfHeldObjects < heldObjects.Length) //Can we hold any more objects?
                 {
-                    if (hit.collider.gameObject.tag == "PickableObject") //Game object is a PickableObject
-                    {
-                        if (amountOfHeldObjects < heldObjects.Length) //Can we hold any more objects?
-                        {
-                            Vector3 holdSlotPos = heldObjects[amountOfHeldObjects].transform.position;
-                            Destroy(heldObjects[amountOfHeldObjects]); //Remove old held game object
-                            GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[(int)hit.collider.gameObject.GetComponent<GridAlignedObject>().objectType], holdSlotPos, Quaternion.Euler(0f, 0f, 0f), transform); //Instance new substituting held object, we search for the right one in the objectsGameObjects_Held dictionary by using the objectType enum as position
-                            heldObjects[amountOfHeldObjects] = objectInstantiated; //Attatch reference to new held object in heldObjects array
-                            Destroy(hit.collider.gameObject); //Remove grid aligned object
-                            amountOfHeldObjects++;
-                        }
-                    }
+                    Vector3 holdSlotPos = heldObjects[amountOfHeldObjects].transform.position;
+                    Destroy(heldObjects[amountOfHeldObjects]); //Remove old held game object
+                    GameObject objectInstantiated = Instantiate(objectsDataRef.objectGameObjects_Held[(int)hit.collider.gameObject.GetComponent<GridAlignedObject>().objectType], holdSlotPos, Quaternion.Euler(0f, 0f, 0f), transform); //Instance new substituting held object, we search for the right one in the objectsGameObjects_Held dictionary by using the objectType enum as position
+                    heldObjects[amountOfHeldObjects] = objectInstantiated; //Attatch reference to new held object in heldObjects array
+                    Destroy(hit.collider.gameObject); //Remove grid aligned object
+                    amountOfHeldObjects++;
                 }
             }
         }
