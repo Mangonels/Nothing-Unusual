@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 playerMovement; //Picks up movement input as movement
     public float speed = 8f;
     public float jumpHeight = 2.5f;
-    public float airBoostStrength = 18f;
+    public float airBoostStrength = 14f;
     public int maxAirboosts = 3;
     [SerializeField] private int usedAirboosts = 0;
     [SerializeField] private Vector3 forcesMovement; //Picks up all additional speeds
@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (forcesMovement.y < 0)
             {
-                forcesMovement.y -= Mathf.Abs(gravity); //Cancel gravity
+                forcesMovement.y = -2f; //Cancel most gravity (leaves a bit of gravity so that the player doesn't unstick from the ground)
             }
         }
         else //Character controller airborne

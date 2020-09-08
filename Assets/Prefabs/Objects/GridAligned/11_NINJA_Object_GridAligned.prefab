@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 703373866578152086}
   - component: {fileID: 2974850631867473743}
   - component: {fileID: 8828416027341790182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 11_NINJA_Object_GridAligned
   m_TagString: PickableObject
   m_Icon: {fileID: 0}

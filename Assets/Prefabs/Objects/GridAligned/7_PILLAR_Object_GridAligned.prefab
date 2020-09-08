@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7936803126596113495}
   - component: {fileID: 8365898959312831200}
   - component: {fileID: 4019315886784322051}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 7_PILLAR_Object_GridAligned
   m_TagString: PickableObject
   m_Icon: {fileID: 0}
