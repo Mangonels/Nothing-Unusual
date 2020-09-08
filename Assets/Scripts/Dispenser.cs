@@ -3,8 +3,6 @@ public class Dispenser : MonoBehaviour
 {
     public GameObject objectToSpawn; //The game object the dispenser will spawn
     public GameObject gridFloorReference; //Used for referencing transform.y position for player drop calculations
-    public float standardObjectHeightAsReference = 1f; //The standard height of an object, used for calculating drop onto stack from player, altitudes
-    public float adjustedDropHeight = 0.6f; //Slight extra height applied to player item dropping above the highest item on the GridBox stack
     public GridBox gridBoxScriptRef; //GridBox script to which spawned objects will be registered
 
     //--------------
@@ -29,13 +27,13 @@ public class Dispenser : MonoBehaviour
         //--------------
         // Debug
         //--------------
-        if (dropSamples) 
+        if (dropSamples)
         {
             timer += Time.deltaTime;
-            if (timer >= timeToDrop && currentDroppedSamples < maxDroppedSamples) 
+            if (timer >= timeToDrop && currentDroppedSamples < maxDroppedSamples)
             {
                 timer = 0.0f;
-                Drop(false);
+                Drop();
                 currentDroppedSamples++;
             }
         }
@@ -48,19 +46,10 @@ public class Dispenser : MonoBehaviour
     }
 
     //Instantly drops object dispenser (or player drop, usually marked by adjusted = true) should spawn (set adjusted for dropping close to the top of highest object)
-    public void Drop(bool adjusted)
+    public void Drop()
     {
-        if (!adjusted)
-        {
-            //Drop item normally from dispenser
-            Instantiate(objectToSpawn, transform.position, Quaternion.Euler(-90, 0, 0));
-            gridBoxScriptRef.IncreaseCurrentObjectAmmount();
-        }
-        else 
-        {
-            //Drop item on top of highest (player drop)
-            Instantiate(objectToSpawn, new Vector3(transform.position.x, gridFloorReference.transform.position.y + (standardObjectHeightAsReference * gridBoxScriptRef.GetCurrentObjectsAmmount()) + adjustedDropHeight, transform.position.z), Quaternion.Euler(0, 0, 0));
-            gridBoxScriptRef.IncreaseCurrentObjectAmmount();
-        }
+        //Drop item normally from dispenser
+        Instantiate(objectToSpawn, transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        gridBoxScriptRef.IncreaseCurrentObjectAmmount();
     }
 }
