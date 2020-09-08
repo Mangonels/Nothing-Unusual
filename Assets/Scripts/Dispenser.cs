@@ -53,7 +53,7 @@ public class Dispenser : MonoBehaviour
         if (!adjusted)
         {
             //Drop item normally from dispenser
-            Instantiate(objectToSpawn, transform.position, Quaternion.Euler(0, 0, 0));
+            Instantiate(objectToSpawn, transform.position, Quaternion.Euler(-90, 0, 0));
             gridBoxScriptRef.IncreaseCurrentObjectAmmount();
         }
         else 
