@@ -28,10 +28,15 @@ public class ObjectsData : MonoBehaviour
         CONNECTOR
     };
 
+    //Global prefab references
     public Material[] objectMaterial_DoorDisplay_Unordered; //Contains all graphics for the door displays in same order as each enum "objectTypes", for unordered door requirements
     public Material[] objectMaterial_DoorDisplay_Ordered; //Contains all graphics for the door displays in same order as each enum "objectTypes", for ordered door requirements
     public GameObject[] objectGameObjects_GridAligned; //Contains GridAligned Objects as gameObjects for each enum "objectTypes"
     public GameObject[] objectGameObjects_Held; //Contains Held Objects as gameObjects for each enum "objectTypes"
+
+    //Scenario Instanced Prefab/GameObjects
+    public GameObject[] doors;
+    public GameObject[] dispenserGrid;
 
     void Start()
     {

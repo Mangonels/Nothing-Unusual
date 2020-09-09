@@ -2,7 +2,7 @@
 
 public class GridBox : MonoBehaviour
 {
-    public int maxObjectsBeforeGameOver = 5;
+    public int gameOverObjects = 10;
     [SerializeField] private int currentObjectAmmount = 0;
 
     void Start()
@@ -28,7 +28,7 @@ public class GridBox : MonoBehaviour
 
     private void CapacityCheck() 
     {
-        if (currentObjectAmmount > maxObjectsBeforeGameOver) //Box capacity exceeded
+        if (currentObjectAmmount >= gameOverObjects) //Box capacity exceeded
         {
             //GAME OVER
 

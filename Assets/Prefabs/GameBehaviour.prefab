@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ad0f25810c0d64d81a0a1d4556be5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectsDataRef: {fileID: 3720130365660121526}
 --- !u!114 &3720130365660121526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,3 +145,8 @@ MonoBehaviour:
   - {fileID: 451021544258121020, guid: 4ace5f083e6b9a14fac3d34c81b29188, type: 3}
   - {fileID: 2027154053630220019, guid: 72357b1d51e93944a8e443243c873d2c, type: 3}
   - {fileID: 1988293793703599616, guid: 5099ec4d6c2d5114aa79c6f4a9cb201f, type: 3}
+  doors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dispenserGrid: []

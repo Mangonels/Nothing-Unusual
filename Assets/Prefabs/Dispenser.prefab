@@ -43,10 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116ec2c71f8cd5245ad3df4812265472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 5513844490889645341, guid: df84aa312f4eb3c4587b7ae832df197c, type: 3}
+  objectsDataRef: {fileID: 3720130365660121526, guid: 40301f25c736a494c8c851db4e4e5391, type: 3}
+  objectToSpawn: 0
   gridFloorReference: {fileID: 0}
-  standardObjectHeightAsReference: 1
-  adjustedDropHeight: 0.6
   gridBoxScriptRef: {fileID: 0}
-  dropSamples: 1
-  maxDroppedSamples: 6
