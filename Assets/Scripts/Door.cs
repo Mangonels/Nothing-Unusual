@@ -5,10 +5,14 @@ public class Door : MonoBehaviour
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
 
     [SerializeField] private bool wantsObjects; //Is this door accepting objects?
-    [SerializeField] private bool wantsThemInOrder; //Does the door want the objects to be presented in the same stack order?
+    [SerializeField] private bool wantsObjectsInOrder; //Does the door want the objects to be presented in the same stack order?
+    [SerializeField] private float willRemainOpenFor;
+    [SerializeField] private float hasBeenOpenFor = 0.0f;
     [SerializeField] private ObjectsData.objectTypes[] wantedObjectTypes; //Current wanted objects by the door
     public GameObject[] requestDisplays;
-    
+
+    private Animator animator;
+
     void Start()
     {
         
@@ -16,7 +20,8 @@ public class Door : MonoBehaviour
 
     void Update()
     {
-        
+        hasBeenOpenFor += Time.deltaTime;
+        if (hasBeenOpenFor >= willRemainOpenFor) CloseDoor(); //Close the door if "willRemainOpenFor" has been exceeded
     }
 
     private void OnTriggerEnter(Collider col)
@@ -26,11 +31,10 @@ public class Door : MonoBehaviour
             if (wantsObjects) 
             {
                 //Validate brought objects
-
                 bool allObjectsFound = true; //We asume true, until one of them isn't found
-                GameObject[] heldObjectArray = col.gameObject.GetComponent<PlayerHolding>().GetHeldObjectsArray(); //Get the player's held object array
+                GameObject[] heldObjectArray = col.gameObject.GetComponentInChildren<PlayerHolding>().GetHeldObjectsArray(); //Get the player's held object array
 
-                if (!wantsThemInOrder) //No order for objects required
+                if (!wantsObjectsInOrder) //No order for objects required
                 {
                     //Check types one by one and compare with existing
                     for (int i = 0; i < wantedObjectTypes.Length; i++) //Each wanted object
@@ -69,15 +73,41 @@ public class Door : MonoBehaviour
         }
     }
 
-    public void OpenDoorWithWantedObjectTypesAndOrder(ObjectsData.objectTypes[] objectTypes, bool inOrder)
+    public void OpenDoor(ObjectsData.objectTypes[] objectTypes, float remainOpenFor, bool inOrder)
     {
         wantedObjectTypes = objectTypes;
         wantsObjects = true;
-        wantsThemInOrder = inOrder;
+        wantsObjectsInOrder = inOrder;
+        willRemainOpenFor = remainOpenFor;
+
+        if (!inOrder) 
+        {
+            for (int i = 0; i < objectTypes.Length; i++)
+            {
+                requestDisplays[i].GetComponent<MeshRenderer>().material = objectsDataRef.objectMaterial_DoorDisplay_Unordered[(int)objectTypes[i]]; //Set unordered requests in displays
+            }
+        }
+        else 
+        {
+            for (int i = 0; i < objectTypes.Length; i++)
+            {
+                requestDisplays[i].GetComponent<MeshRenderer>().material = objectsDataRef.objectMaterial_DoorDisplay_Ordered[(int)objectTypes[i]]; //Set ordered requests in displays
+            }
+        }
+
+        gameObject.GetComponentInChildren<Animator>().SetBool("DoorOpen", true); //Animate door opening
     }
 
     public void CloseDoor()
     {
         wantsObjects = false;
+        hasBeenOpenFor = 0f;
+
+        for (int i = 0; i < requestDisplays.Length; i++)
+        {
+            requestDisplays[i].GetComponent<MeshRenderer>().material = objectsDataRef.objectMaterial_DoorDisplay_Unordered[0]; //Set displays to none (no requests)
+        }
+
+        gameObject.GetComponentInChildren<Animator>().SetBool("DoorOpen", false); //Animate door closing
     }
 }
