@@ -88,15 +88,25 @@ public class PlayerMovement : MonoBehaviour
             {
                 forcesMovement.y = -2f; //Cancel most gravity (leaves a bit of gravity so that the player doesn't unstick from the ground)
             }
+
+            //Apply player movement from ground impulse
+            cControllerRef.Move(playerMovement * speed * Time.deltaTime);
         }
         else //Character controller airborne
         {
+            //Diferent movement in air
+            forcesMovement.x += playerMovement.x * 0.2f;
+            forcesMovement.z += playerMovement.z * 0.2f;
+
+            //Maximum/Minimum clamp calibration
+            if(forcesMovement.x > 15f) forcesMovement.x = 15f;
+            if (forcesMovement.x < -15f) forcesMovement.x = -15f;
+            if (forcesMovement.z > 15f) forcesMovement.z = 15f;
+            if (forcesMovement.z < -15f) forcesMovement.z = -15f;
+
             //Increase negative y forcesMovement due to gravity
             forcesMovement.y += gravity * Time.deltaTime; 
         } 
-
-        //Apply player movement
-        cControllerRef.Move(playerMovement * speed * Time.deltaTime);
 
         //Apply other movements derived from forces
         cControllerRef.Move(forcesMovement * Time.deltaTime);
