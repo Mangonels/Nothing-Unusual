@@ -4,7 +4,7 @@ public class Door : MonoBehaviour
     public PlayerHolding holdInformationScriptRef; //References the script which contained held objects information
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
 
-    [SerializeField] private bool wantsObjects; //Is this door accepting objects?
+    public bool wantsObjects; //Is this door accepting objects?
     [SerializeField] private bool wantsObjectsInOrder; //Does the door want the objects to be presented in the same stack order?
     [SerializeField] private float willRemainOpenFor;
     [SerializeField] private float hasBeenOpenFor = 0.0f;
