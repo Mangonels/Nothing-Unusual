@@ -95,14 +95,8 @@ public class PlayerMovement : MonoBehaviour
         else //Character controller airborne
         {
             //Diferent movement in air
-            forcesMovement.x += playerMovement.x * 0.2f;
-            forcesMovement.z += playerMovement.z * 0.2f;
-
-            //Maximum/Minimum clamp calibration
-            if(forcesMovement.x > 15f) forcesMovement.x = 15f;
-            if (forcesMovement.x < -15f) forcesMovement.x = -15f;
-            if (forcesMovement.z > 15f) forcesMovement.z = 15f;
-            if (forcesMovement.z < -15f) forcesMovement.z = -15f;
+            forcesMovement.x += playerMovement.x * 0.1f;
+            forcesMovement.z += playerMovement.z * 0.1f;
 
             //Increase negative y forcesMovement due to gravity
             forcesMovement.y += gravity * Time.deltaTime; 
