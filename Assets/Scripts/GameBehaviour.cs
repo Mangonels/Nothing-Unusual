@@ -1,27 +1,33 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
 
-//    [SerializeField] private float totalTimer = 0.0f;
+    public bool gameActive = true;
+    [SerializeField] private int score = 0;
+    public TextMeshProUGUI uiScore;
+
+    //[SerializeField] private float totalTimer = 0.0f;
     [SerializeField] private float phaseOfDropSpeedTimer = 0.0f;
     [SerializeField] private float phaseOfDoorRequestsTimer = 0.0f;
     [SerializeField] private float newDropTimer = 0.0f;
     [SerializeField] private float newDoorTimer = 0.0f;
 
     public int percentileChanceOfDroppingWhenItsTime = 85;
-    public int percentileChanceOfDoorOpeningWhenItsTime = 65;
+    public int percentileChanceOfDoorOpeningWhenItsTime = 90;
 
-//    [SerializeField] private int speedPhase = 0;
+    //[SerializeField] private int speedPhase = 0;
     [SerializeField] private int doorRequestsPhase = 0;
-    [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 300f; //Threshold after which drop timeToDropThreshold is reduced
-    [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 150f; //Threshold after which drop timeToDropThreshold is reduced
+    [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 180f; //Threshold after which drop timeToDropThreshold is reduced
+    [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 90f; //Threshold after which drop timeToDropThreshold is reduced
     [SerializeField] private float timeToDropThreshold = 22f;
-    [SerializeField] private float timeToDropThresholdReducer = 0.8f;
-    [SerializeField] private float timeToOpenDoorThreshold = 90f;
+    [SerializeField] private float timeToDropThresholdReducer = 0.9f;
+    [SerializeField] private float timeToOpenDoorThreshold = 25f;
 
+    [SerializeField] private bool firstTimeToDropThresholdReached = true;
     [SerializeField] private float maxTimeDoorsOpen = 80f;
     [SerializeField] private float minTimeDoorsOpen = 70f;
     [SerializeField] private int maxAmountOfObjectsRequestedPerDoor = 1;
@@ -44,89 +50,187 @@ public class GameBehaviour : MonoBehaviour
 
         //Open first door with first required objects
         ObjectsData.objectTypes[] objectTypes = { ObjectsData.objectTypes.TETRAS, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE };
-        firstDoor.GetComponent<Door>().OpenDoor(objectTypes, 30f, false);
+        firstDoor.GetComponent<Door>().Open(objectTypes, 1, 30f, false);
     }
 
     void Update()
     {
-//        totalTimer += Time.deltaTime;
-        phaseOfDropSpeedTimer += Time.deltaTime;
-        phaseOfDoorRequestsTimer += Time.deltaTime;
-        newDropTimer += Time.deltaTime;
-        newDoorTimer += Time.deltaTime;
-
-        if (phaseOfDropSpeedTimer >= phaseOfSpeedTimerDurationThreshold)
+        if (gameActive)
         {
-            phaseOfDropSpeedTimer = 0.0f; //Reset timer
-            timeToDropThreshold *= timeToDropThresholdReducer; //Reduce time in between drops (difficulty increase)
-//            speedPhase++; //Next speed phase
-        }
+            //totalTimer += Time.deltaTime;
+            phaseOfDropSpeedTimer += Time.deltaTime;
+            phaseOfDoorRequestsTimer += Time.deltaTime;
+            newDropTimer += Time.deltaTime;
+            newDoorTimer += Time.deltaTime;
 
-        if (phaseOfDoorRequestsTimer >= phaseOfDoorRequestsTimerDurationThreshold) //Incrementing "objectsPhase" affects door progressions such as: max/minAmountOfObjectsRequestedPerDoor, max/minTimeDoorsOpen & objectsOrderMode
-        {
-            phaseOfDoorRequestsTimer = 0.0f;
-
-            if (doorRequestsPhase == 0) phaseOfDoorRequestsTimerDurationThreshold = 300f; //Phases after the first will last 5 min instead of 2.5
-            doorRequestsPhase++; //Next objects phase
-            if (doorRequestsPhase == 2) timeToOpenDoorThreshold = 45f;
-        }
-
-        if (newDropTimer >= timeToDropThreshold) //It's time to drop an item on a random tile
-        {
-            newDropTimer = 0.0f;
-
-            if (Random.Range(1, 100) < percentileChanceOfDroppingWhenItsTime) //Reduced chance of dropping depending on "percentileChanceOfDroppingWhenItsTime"?
+            if (phaseOfDropSpeedTimer >= phaseOfSpeedTimerDurationThreshold)
             {
-                int randomDispenser = Random.Range(0, objectsDataRef.dispenserGrid.Length); //Choose a random dispenser by Grid Slot number
-                ObjectsData.objectTypes spawnedObject = (ObjectsData.objectTypes)Random.Range(1, objectsDataRef.objectGameObjects_GridAligned.Length);
-                objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().SetSpawnObject(spawnedObject); //Assign random object (NONE not included) to spawn in randomly selected dispenser
-                objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().Drop(); //Tell randomly selected dispenser to drop randomly selected and assigned item
-                doorAccountableSpawnedObjects.Add(spawnedObject);
+                phaseOfDropSpeedTimer = 0.0f; //Reset timer
+                timeToDropThreshold *= timeToDropThresholdReducer; //Reduce time in between drops (difficulty increase)
+                //speedPhase++; //Next speed phase
             }
-        }
-        if (newDoorTimer >= timeToOpenDoorThreshold) //It's time to open another door
-        {
-            newDoorTimer = 0.0f;
-            if (Random.Range(1, 100) < percentileChanceOfDoorOpeningWhenItsTime) //Reduced chance of door opening depending on "percentileChanceOfDoorOpeningWhenItsTime"? [IMPORTANT] Already open doors oclude doors from opening (if they are still open)
+
+            if (phaseOfDoorRequestsTimer >= phaseOfDoorRequestsTimerDurationThreshold) //Incrementing "objectsPhase" affects door progressions such as: max/minAmountOfObjectsRequestedPerDoor, max/minTimeDoorsOpen & objectsOrderMode
             {
-                int randomDoor = Random.Range(0, objectsDataRef.doors.Length); //Choose a random door by doors slot number
-                if (!objectsDataRef.doors[randomDoor].GetComponent<Door>().wantsObjects) //Obviously, only open the door if it isn't already open
+                phaseOfDoorRequestsTimer = 0.0f;
+
+                //-------------------------
+                //Per phase configurations
+                //-------------------------
+
+                doorRequestsPhase++; //Next objects phase
+                if (doorRequestsPhase == 1)
                 {
-                    //----------------------
-                    //New door configuration
-                    //----------------------
+                    timeToOpenDoorThreshold = 20f;
+                    phaseOfDoorRequestsTimerDurationThreshold = 180f; //Phases after 0 will last 5 min instead of 2.5
+                }
+                else if (doorRequestsPhase == 2)
+                {
+                    timeToOpenDoorThreshold = 15f;
+                    minTimeDoorsOpen = 60f;
+                    maxAmountOfObjectsRequestedPerDoor = 3;
+                }
+                else if (doorRequestsPhase == 3) 
+                {
+                    objectsOrderMode = 2;
+                    maxAmountOfObjectsRequestedPerDoor = 4;
+                }
+                else if (doorRequestsPhase == 4)
+                {
+                    minTimeDoorsOpen = 55f;
+                    maxTimeDoorsOpen = 70f;
+                    maxAmountOfObjectsRequestedPerDoor = 5;
+                }
+                else if (doorRequestsPhase == 5)
+                {
 
-                    //Fill up 5 object types that will be requested by door
-                    ObjectsData.objectTypes[] objectTypes = { ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE }; //Array which will contain all required objects by name for the door, for reference
-                    int slotAmountThisTime = Random.Range(minAmountOfObjectsRequestedPerDoor, maxAmountOfObjectsRequestedPerDoor); //Amount of required slots starting from 0 the door will have requirements for
-                    int slotsFilled = 0;
-                    for (int i = 0; i < slotAmountThisTime; i++) 
-                    {
-                        slotsFilled++;
-                        objectTypes[i] = doorAccountableSpawnedObjects[Random.Range(0, doorAccountableSpawnedObjects.Count)];
-                    }
-                    for (int i = slotsFilled; i < 5; i--)
-                    {
-                        objectTypes[i] = ObjectsData.objectTypes.NONE;
-                    }
-                    
-                    //Define a duration for the door to remain open
-                    float randomDoorDuration = Random.Range(minTimeDoorsOpen, maxTimeDoorsOpen);
-                   
-                    //Define if objects will be asked for in order or not
-                    bool inOrder = false;
-                    if (objectsOrderMode == 0) { }
-                    else if (objectsOrderMode == 1)
-                    {
-                        if (Random.Range(0, 1) == 0) inOrder = true;
-                        else inOrder = false;
-                    }
-                    else if (objectsOrderMode == 2) { inOrder = true; }
+                }
+                else if (doorRequestsPhase == 6)
+                {
+                    objectsOrderMode = 3;
+                }
+                else if (doorRequestsPhase == 8)
+                {
+                    //objectsOrderMode = 3 preserved from previous odd phase
+                    minTimeDoorsOpen = 40f;
+                    maxTimeDoorsOpen = 55f;
+                }
+                else if (doorRequestsPhase == 12)
+                {
+                    //objectsOrderMode = 3 preserved from previous odd phase
+                    minTimeDoorsOpen = 30f;
+                    maxTimeDoorsOpen = 45f;
+                }
+                else if (doorRequestsPhase == 16)
+                {
+                    //objectsOrderMode = 3 preserved from previous odd phase
+                    minTimeDoorsOpen = 25f;
+                    maxTimeDoorsOpen = 35f;
+                }
 
-                    //Finally open the door with final input, which is usually going to be dependant on "doorRequestsPhase"
-                    objectsDataRef.doors[randomDoor].GetComponent<Door>().OpenDoor(objectTypes, randomDoorDuration, inOrder); 
+                else if ((doorRequestsPhase % 2) != 0) //Every odd number
+                {
+                    objectsOrderMode = 2;
+                }
+                else if ((doorRequestsPhase % 2) == 0) //Every even number
+                {
+                    objectsOrderMode = 3;
                 }
             }
+
+            if (newDropTimer >= timeToDropThreshold) //It's time to drop an item on a random tile
+            {
+                newDropTimer = 0.0f;
+
+                if (!firstTimeToDropThresholdReached) //Not first drop
+                {
+                    if (Random.Range(1, 100) < percentileChanceOfDroppingWhenItsTime) //Reduced chance of dropping depending on "percentileChanceOfDroppingWhenItsTime"?
+                    {
+                        int randomDispenser = Random.Range(0, objectsDataRef.dispenserGrid.Length); //Choose a random dispenser by Grid Slot number
+                        ObjectsData.objectTypes spawnedObject = (ObjectsData.objectTypes)Random.Range(1, objectsDataRef.objectGameObjects_GridAligned.Length);
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().SetSpawnObject(spawnedObject); //Assign random object (NONE not included) to spawn in randomly selected dispenser
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().Drop(); //Tell randomly selected dispenser to drop randomly selected and assigned item
+                        doorAccountableSpawnedObjects.Add(spawnedObject);
+                    }
+                }
+                else //Drop a first batch of objects so the room doesn't feel so empty at the beginning
+                {
+                    firstTimeToDropThresholdReached = false;
+                    for (int i = 0; i < 3; i++) //Drop 3 objects
+                    {
+                        int randomDispenser = Random.Range(0, objectsDataRef.dispenserGrid.Length); //Choose a random dispenser by Grid Slot number
+                        ObjectsData.objectTypes spawnedObject = (ObjectsData.objectTypes)Random.Range(1, objectsDataRef.objectGameObjects_GridAligned.Length);
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().SetSpawnObject(spawnedObject); //Assign random object (NONE not included) to spawn in randomly selected dispenser
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().Drop(); //Tell randomly selected dispenser to drop randomly selected and assigned item
+                        doorAccountableSpawnedObjects.Add(spawnedObject);
+                    }
+                }
+
+            }
+            if (newDoorTimer >= timeToOpenDoorThreshold) //It's time to open another door
+            {
+                newDoorTimer = 0.0f;
+                if (Random.Range(1, 100) < percentileChanceOfDoorOpeningWhenItsTime) //Reduced chance of door opening depending on "percentileChanceOfDoorOpeningWhenItsTime"? [IMPORTANT] Already open doors oclude doors from opening (if they are still open)
+                {
+                    int randomDoor = Random.Range(0, objectsDataRef.doors.Length); //Choose a random door by doors slot number
+                    if (!objectsDataRef.doors[randomDoor].GetComponent<Door>().wantsObjects) //Obviously, only open the door if it isn't already open
+                    {
+                        //----------------------
+                        //New door configuration
+                        //----------------------
+
+                        //Fill up 5 object types that will be requested by door
+                        ObjectsData.objectTypes[] objectTypes = { ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE, ObjectsData.objectTypes.NONE }; //Array which will contain all required objects by name for the door, for reference
+                        int slotAmountThisTime = Random.Range(minAmountOfObjectsRequestedPerDoor, maxAmountOfObjectsRequestedPerDoor); //Amount of required slots starting from 0 the door will have requirements for
+                        for (int i = 0; i < slotAmountThisTime; i++) //Configure slots up to "slotAmountThisTime", the rest will be "NONE" objects by default
+                        {
+                            if (doorAccountableSpawnedObjects.Count != 0) //Accountable objects exist
+                            {
+                                objectTypes[i] = doorAccountableSpawnedObjects[Random.Range(0, doorAccountableSpawnedObjects.Count)];
+                            }
+                            else objectTypes[i] = (ObjectsData.objectTypes)Random.Range(1, objectsDataRef.objectGameObjects_GridAligned.Length); //Make up an item (this should be a rare situation where no items have probably spawned)
+                        }
+
+                        //Define a duration for the door to remain open
+                        float randomDoorDuration = Random.Range(minTimeDoorsOpen, maxTimeDoorsOpen);
+
+                        //Define if objects will be asked for in order or not
+                        bool inOrder = false;
+                        if (objectsOrderMode == 0) { }
+                        else if (objectsOrderMode == 1)
+                        {
+                            if (Random.Range(0, 1) == 0) inOrder = true;
+                            else inOrder = false;
+                        }
+                        else if (objectsOrderMode == 2) { inOrder = true; }
+
+                        //Finally open the door with final input, which is usually going to be dependant on "doorRequestsPhase"
+                        objectsDataRef.doors[randomDoor].GetComponent<Door>().Open(objectTypes, slotAmountThisTime, randomDoorDuration, inOrder);
+                    }
+                }
+            }
+        }
+    }
+
+    public void RemoveDoorAccountableObject(ObjectsData.objectTypes type) 
+    {
+        doorAccountableSpawnedObjects.Remove(type);
+    }
+    public void AddPoints(int points) 
+    {
+        score += points;
+        uiScore.text = score.ToString();
+    }
+
+    public void GameOver()
+    {
+        //Stop game behaviour updating
+        gameActive = false;
+
+        //Force all doors to close
+        for (int i = 0; i<objectsDataRef.doors.Length; i++) 
+        {
+            objectsDataRef.doors[i].GetComponent<Door>().Close();
         }
     }
 }

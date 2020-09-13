@@ -248,8 +248,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.27159882, y: 6.0155454, z: 2.0412788}
-  m_Center: {x: -35.179325, y: 1.1178715, z: 25.427813}
+  m_Size: {x: 1.063118, y: 5.8788204, z: 2.4988365}
+  m_Center: {x: -34.783566, y: 1.049509, z: 25.41479}
 --- !u!114 &131514814743379277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,11 +264,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdInformationScriptRef: {fileID: 0}
   objectsDataRef: {fileID: 0}
+  gameBehaviourRef: {fileID: 0}
   wantsObjects: 0
   wantsObjectsInOrder: 0
   willRemainOpenFor: 0
   hasBeenOpenFor: 0
   wantedObjectTypes: 
+  wantedObjectsAmount: 0
   requestDisplays:
   - {fileID: 7964207178246670105}
   - {fileID: 6495033269529413327}

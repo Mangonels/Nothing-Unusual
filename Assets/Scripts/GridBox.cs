@@ -2,7 +2,9 @@
 
 public class GridBox : MonoBehaviour
 {
-    public int gameOverObjects = 10;
+    public GameBehaviour gameBehaviourRef; //Reference to game behaviour script
+
+    public int gameOverObjects = 5;
     [SerializeField] private int currentObjectAmmount = 0;
 
     void Start()
@@ -28,10 +30,10 @@ public class GridBox : MonoBehaviour
 
     private void CapacityCheck() 
     {
-        if (currentObjectAmmount >= gameOverObjects) //Box capacity exceeded
+        if (currentObjectAmmount >= gameOverObjects && gameBehaviourRef.gameActive) //Box capacity exceeded
         {
             //GAME OVER
-
+            gameBehaviourRef.GameOver();
         }
     }
 
