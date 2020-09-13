@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
+    public GameObject gameOverWindowRef;
 
     public bool gameActive = true;
     [SerializeField] private int score = 0;
@@ -210,6 +212,10 @@ public class GameBehaviour : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetAxis("Submit") > 0.5) //Restart game by pressing enter only when inactive
+        {
+            SceneManager.LoadScene("Nothing Unusual");
+        }
     }
 
     public void RemoveDoorAccountableObject(ObjectsData.objectTypes type) 
@@ -232,5 +238,8 @@ public class GameBehaviour : MonoBehaviour
         {
             objectsDataRef.doors[i].GetComponent<Door>().Close();
         }
+
+        //Show game over window
+        gameOverWindowRef.SetActive(true);
     }
 }
