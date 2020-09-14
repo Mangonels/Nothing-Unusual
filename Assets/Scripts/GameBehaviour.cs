@@ -219,7 +219,7 @@ public class GameBehaviour : MonoBehaviour
         }
         else if (Input.GetAxis("Submit") > 0.5) //Restart game by pressing enter only when inactive
         {
-            SceneManager.LoadScene("Nothing Unusual");
+            SceneManager.LoadScene("BlocksRoom");
         }
     }
 

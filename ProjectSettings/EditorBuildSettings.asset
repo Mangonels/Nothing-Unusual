@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c2b850c960bbef743bc3a784666b98ba
   - enabled: 1
-    path: Assets/Scenes/Nothing Unusual.unity
+    path: Assets/Scenes/BlocksRoom.unity
     guid: 4ebdfb2759add99449fb620f3563dcf4
   m_configObjects: {}

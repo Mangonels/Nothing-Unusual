@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
     {
         click.Play();
 
-        SceneManager.LoadScene("Nothing Unusual");
+        SceneManager.LoadScene("BlocksRoom");
     }
 
     public void ShowCredits(bool show) 
