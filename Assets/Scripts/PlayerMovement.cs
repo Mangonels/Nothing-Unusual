@@ -101,7 +101,10 @@ public class PlayerMovement : MonoBehaviour
             //Apply player movement from ground impulse
             cControllerRef.Move(playerMovement * speed * Time.deltaTime);
 
-            if (!groundedPrevFrame) fall.Play();
+            if (groundedPrevFrame == false) {
+                Debug.Log("Fell");
+                fall.Play();
+            }
         }
         else //Character controller airborne
         {

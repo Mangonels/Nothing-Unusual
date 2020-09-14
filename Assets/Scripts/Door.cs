@@ -37,7 +37,7 @@ public class Door : MonoBehaviour
             {
                 //Validate brought objects
                 GameObject[] heldObjectArray = col.gameObject.GetComponentInChildren<PlayerHolding>().GetHeldObjectsArray(); //Get the player's held object array
-                bool[] slotMarkedAsCohinciding = { false, false, false, false, false }; //Marks with "true" whichSlots have already been approved as cohinciding
+                bool[] slotsMarkedAsCoinciding = { false, false, false, false, false }; //Marks with "true" whichSlots have already been approved as coinciding
 
                 bool allObjectsFound = true; //We asume true, until one of them isn't found
                 if (!wantsObjectsInOrder) //No order for objects required
@@ -47,12 +47,12 @@ public class Door : MonoBehaviour
                     {
                         for (int j = 0; j < 5; j++) //See if it's in any of the held objects array
                         {
-                            if (wantedObjectTypes[i] == heldObjectArray[j].GetComponent<HeldObject>().objectType && slotMarkedAsCohinciding[j] == false) 
+                            if (wantedObjectTypes[i] == heldObjectArray[j].GetComponent<HeldObject>().objectType && slotsMarkedAsCoinciding[j] == false) 
                             {
-                                slotMarkedAsCohinciding[j] = true;
+                                slotsMarkedAsCoinciding[j] = true;
                                 break; //Object found, next?
                             }
-                            else if (j == 5) //Last possible slot where we could find coinciding object
+                            else if (j == 4) //Last possible slot where we could find coinciding object
                             {
                                 allObjectsFound = false; //We reached the end of "heldObjectArray" without finding this object, so not all objects where found
                                 goto End; //Exit entire nested loop and jump to "End:"

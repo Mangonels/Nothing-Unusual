@@ -26,7 +26,7 @@ public class GameBehaviour : MonoBehaviour
     [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 120f; //Threshold after which drop timeToDropThreshold is reduced
     [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 60f; //Threshold after which drop timeToDropThreshold is reduced
     [SerializeField] private float timeToDropThreshold = 20f;
-    [SerializeField] private float timeToDropThresholdReducer = 0.8f;
+    [SerializeField] private float timeToDropThresholdReducer = 0.7f;
     [SerializeField] private float timeToOpenDoorThreshold = 25f;
 
     [SerializeField] private bool firstTimeToDropThresholdReached = true;
