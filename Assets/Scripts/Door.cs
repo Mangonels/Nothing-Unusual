@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 public class Door : MonoBehaviour
 {
+    public AudioSource open;
+    public AudioSource close;
+    public AudioSource negate;
+    public AudioSource accept;
+
     public PlayerHolding holdInformationScriptRef; //References the script which contained held objects information
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
     public GameBehaviour gameBehaviourRef; //Reference to game behaviour script
 
     public bool wantsObjects; //Is this door accepting objects?
-    [SerializeField] private bool wantsObjectsInOrder; //Does the door want the objects to be presented in the same stack order?
-    [SerializeField] private float willRemainOpenFor;
+    [SerializeField] private bool wantsObjectsInOrder = false; //Does the door want the objects to be presented in the same stack order?
+    [SerializeField] private float willRemainOpenFor = 30f;
     [SerializeField] private float hasBeenOpenFor = 0.0f;
-    [SerializeField] private ObjectsData.objectTypes[] wantedObjectTypes; //Current wanted objects by the door
+    [SerializeField] private ObjectsData.objectTypes[] wantedObjectTypes = null; //Current wanted objects by the door
     [SerializeField] private int wantedObjectsAmount = 0;
     public GameObject[] requestDisplays;
 
@@ -32,6 +37,7 @@ public class Door : MonoBehaviour
             {
                 //Validate brought objects
                 GameObject[] heldObjectArray = col.gameObject.GetComponentInChildren<PlayerHolding>().GetHeldObjectsArray(); //Get the player's held object array
+                bool[] slotMarkedAsCohinciding = { false, false, false, false, false }; //Marks with "true" whichSlots have already been approved as cohinciding
 
                 bool allObjectsFound = true; //We asume true, until one of them isn't found
                 if (!wantsObjectsInOrder) //No order for objects required
@@ -39,14 +45,14 @@ public class Door : MonoBehaviour
                     //Check types one by one and compare with existing
                     for (int i = 0; i < wantedObjectTypes.Length; i++) //Each wanted object
                     {
-                        if (wantedObjectTypes[i] == ObjectsData.objectTypes.NONE) goto End; //There shouldn't be any more wanted objects since we found first NONE, exit loop and jump to "End:"
-                        for (int j = 0; j < heldObjectArray.Length; j++) //See if it's in any of the held objects array
+                        for (int j = 0; j < 5; j++) //See if it's in any of the held objects array
                         {
-                            if (wantedObjectTypes[i] == heldObjectArray[j].GetComponent<HeldObject>().objectType) 
+                            if (wantedObjectTypes[i] == heldObjectArray[j].GetComponent<HeldObject>().objectType && slotMarkedAsCohinciding[j] == false) 
                             {
-                                break; //Object found, next item?
-                            } 
-                            else if (j == heldObjectArray.Length-1) //Last possible slot where we could find coinciding object
+                                slotMarkedAsCohinciding[j] = true;
+                                break; //Object found, next?
+                            }
+                            else if (j == 5) //Last possible slot where we could find coinciding object
                             {
                                 allObjectsFound = false; //We reached the end of "heldObjectArray" without finding this object, so not all objects where found
                                 goto End; //Exit entire nested loop and jump to "End:"
@@ -80,10 +86,12 @@ public class Door : MonoBehaviour
                         if (wantedObjectTypes[i] != ObjectsData.objectTypes.NONE) gameBehaviourRef.RemoveDoorAccountableObject(wantedObjectTypes[i]); //Since we delivered the object/s, doors won't ask for this/these object/s again
                         else break;
                     }
+
+                    accept.Play();
                 }
                 else //Held objects not found and rejected
                 {
-                
+                    negate.Play();
                 }
             }
         }
@@ -113,6 +121,8 @@ public class Door : MonoBehaviour
         }
 
         gameObject.GetComponentInChildren<Animator>().SetBool("DoorOpen", true); //Animate door opening
+
+        open.Play();
     }
 
     public void Close()
@@ -126,5 +136,7 @@ public class Door : MonoBehaviour
         }
 
         gameObject.GetComponentInChildren<Animator>().SetBool("DoorOpen", false); //Animate door closing
+
+        close.Play();
     }
 }

@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public AudioSource jump;
+    public AudioSource boost;
+    public AudioSource fall;
+
     public float gravity = -18f;
 
     public CharacterController cControllerRef; //Character controller reference
@@ -13,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public int maxAirboosts = 3;
     [SerializeField] private int usedAirboosts = 0;
     [SerializeField] private Vector3 forcesMovement; //Picks up all additional speeds
+    [SerializeField] bool groundedPrevFrame; //Stores if the player was grounded the previous frame
 
     public CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
     Vector3 camdir; //Camera direction/forward vector
@@ -57,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
         {
             //Jump movement calculation
             forcesMovement.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            jump.Play();
         }
 
         if (Input.GetButtonDown("Jump") && !cControllerRef.isGrounded) //Jumping airborne
@@ -68,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
                 forcesMovement.z = playerMovement.z * airBoostStrength;
                 forcesMovement.x = playerMovement.x * airBoostStrength;
                 forcesMovement.y = Mathf.Sqrt(jumpHeight * -2f * gravity); //This is pretty much the same as a second jump impulse
+
+                boost.Play();
             }
         }
 
@@ -91,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
 
             //Apply player movement from ground impulse
             cControllerRef.Move(playerMovement * speed * Time.deltaTime);
+
+            if (!groundedPrevFrame) fall.Play();
         }
         else //Character controller airborne
         {
@@ -104,5 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Apply other movements derived from forces
         cControllerRef.Move(forcesMovement * Time.deltaTime);
+
+        groundedPrevFrame = cControllerRef.isGrounded; //Store current grounded status for next frame referencing
     }
 }

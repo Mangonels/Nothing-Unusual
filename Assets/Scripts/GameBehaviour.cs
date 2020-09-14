@@ -18,8 +18,8 @@ public class GameBehaviour : MonoBehaviour
     [SerializeField] private float newDropTimer = 0.0f;
     [SerializeField] private float newDoorTimer = 0.0f;
 
-    public int percentileChanceOfDroppingWhenItsTime = 85;
-    public int percentileChanceOfDoorOpeningWhenItsTime = 90;
+    [SerializeField] private int percentileChanceOfDroppingWhenItsTime = 85;
+    [SerializeField] private int percentileChanceOfDoorOpeningWhenItsTime = 90;
 
     //[SerializeField] private int speedPhase = 0;
     [SerializeField] private int doorRequestsPhase = 0;
@@ -235,6 +235,8 @@ public class GameBehaviour : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.Log("GameOver called");
+
         //Stop game behaviour updating
         gameActive = false;
 

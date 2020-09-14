@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerHolding : MonoBehaviour
 {
+    public AudioSource drop;
+    public AudioSource pick;
+
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
 
     public GameObject[] heldObjects;
@@ -44,6 +47,8 @@ public class PlayerHolding : MonoBehaviour
                     heldObjects[amountOfHeldObjects] = HeldObjectInstantiated; //Attatch reference to new held object in heldObjects array
                     Destroy(hit.collider.gameObject); //Remove grid aligned object
                     amountOfHeldObjects++;
+
+                    pick.Play();
                 }
             }
         }
@@ -69,11 +74,13 @@ public class PlayerHolding : MonoBehaviour
                     collidingGridBox = collidingGridBoxes[0]; //Pick only the first grid box found found (should be only one anyway, but better safe than sorry)
                     //Debug.Log("Object Type attempted to drop: " + heldObjects[amountOfHeldObjects].gameObject.GetComponent<HeldObject>().objectType);
                     Instantiate(objectsDataRef.objectGameObjects_GridAligned[(int)objectType],
-                                new Vector3(collidingGridBox.transform.position.x, collidingGridBox.GetComponentInChildren<Dispenser>().gridFloorReference.transform.position.y + (standardObjectHeightAsReference * collidingGridBox.gameObject.GetComponent<GridBox>().GetCurrentObjectsAmmount()) + adjustedDropHeight, collidingGridBox.transform.position.z), 
+                                new Vector3(collidingGridBox.transform.position.x, collidingGridBox.GetComponentInChildren<Dispenser>().gridFloorReference.transform.position.y + (standardObjectHeightAsReference * collidingGridBox.gameObject.GetComponent<GridBox>().GetCurrentObjectsAmmount()) + adjustedDropHeight, collidingGridBox.transform.position.z),
                                 Quaternion.Euler(-90f, 0f, 0f),
-                                collidingGridBox.transform 
+                                collidingGridBox.transform
                                 ); //Instance drop, aligned with grid's dispenser and adjusted on top of highest dispenser aligned object
                     collidingGridBox.GetComponentInChildren<GridBox>().IncreaseCurrentObjectAmmount(); //Notify grid box of extra spawned object
+
+                    drop.Play();
                 }
             }
         }
