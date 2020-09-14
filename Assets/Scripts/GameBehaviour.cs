@@ -23,10 +23,10 @@ public class GameBehaviour : MonoBehaviour
 
     //[SerializeField] private int speedPhase = 0;
     [SerializeField] private int doorRequestsPhase = 0;
-    [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 180f; //Threshold after which drop timeToDropThreshold is reduced
-    [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 90f; //Threshold after which drop timeToDropThreshold is reduced
-    [SerializeField] private float timeToDropThreshold = 22f;
-    [SerializeField] private float timeToDropThresholdReducer = 0.9f;
+    [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 120f; //Threshold after which drop timeToDropThreshold is reduced
+    [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 60f; //Threshold after which drop timeToDropThreshold is reduced
+    [SerializeField] private float timeToDropThreshold = 20f;
+    [SerializeField] private float timeToDropThresholdReducer = 0.8f;
     [SerializeField] private float timeToOpenDoorThreshold = 25f;
 
     [SerializeField] private bool firstTimeToDropThresholdReached = true;
@@ -84,12 +84,12 @@ public class GameBehaviour : MonoBehaviour
                 if (doorRequestsPhase == 1)
                 {
                     timeToOpenDoorThreshold = 20f;
-                    phaseOfDoorRequestsTimerDurationThreshold = 180f; //Phases after 0 will last 5 min instead of 2.5
+                    phaseOfDoorRequestsTimerDurationThreshold = 120f; //Phases after 0 will last 5 min instead of 2.5
                 }
                 else if (doorRequestsPhase == 2)
                 {
                     timeToOpenDoorThreshold = 15f;
-                    minTimeDoorsOpen = 60f;
+                    minTimeDoorsOpen = 55f;
                     maxAmountOfObjectsRequestedPerDoor = 3;
                 }
                 else if (doorRequestsPhase == 3) 
@@ -99,13 +99,12 @@ public class GameBehaviour : MonoBehaviour
                 }
                 else if (doorRequestsPhase == 4)
                 {
-                    minTimeDoorsOpen = 55f;
                     maxTimeDoorsOpen = 70f;
                     maxAmountOfObjectsRequestedPerDoor = 5;
                 }
                 else if (doorRequestsPhase == 5)
                 {
-
+                    minTimeDoorsOpen = 50f;
                 }
                 else if (doorRequestsPhase == 6)
                 {
@@ -114,16 +113,22 @@ public class GameBehaviour : MonoBehaviour
                 else if (doorRequestsPhase == 8)
                 {
                     //objectsOrderMode = 3 preserved from previous odd phase
-                    minTimeDoorsOpen = 40f;
+                    minTimeDoorsOpen = 45f;
                     maxTimeDoorsOpen = 55f;
                 }
                 else if (doorRequestsPhase == 12)
                 {
                     //objectsOrderMode = 3 preserved from previous odd phase
-                    minTimeDoorsOpen = 30f;
-                    maxTimeDoorsOpen = 45f;
+                    minTimeDoorsOpen = 40f;
+                    maxTimeDoorsOpen = 50f;
                 }
                 else if (doorRequestsPhase == 16)
+                {
+                    //objectsOrderMode = 3 preserved from previous odd phase
+                    minTimeDoorsOpen = 35f;
+                    maxTimeDoorsOpen = 45f;
+                }
+                else if (doorRequestsPhase == 20)
                 {
                     //objectsOrderMode = 3 preserved from previous odd phase
                     minTimeDoorsOpen = 25f;

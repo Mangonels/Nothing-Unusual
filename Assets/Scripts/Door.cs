@@ -42,7 +42,10 @@ public class Door : MonoBehaviour
                         if (wantedObjectTypes[i] == ObjectsData.objectTypes.NONE) goto End; //There shouldn't be any more wanted objects since we found first NONE, exit loop and jump to "End:"
                         for (int j = 0; j < heldObjectArray.Length; j++) //See if it's in any of the held objects array
                         {
-                            if (wantedObjectTypes[i] == heldObjectArray[j].GetComponent<HeldObject>().objectType) break; //Object found, next item?
+                            if (wantedObjectTypes[i] == heldObjectArray[j].GetComponent<HeldObject>().objectType) 
+                            {
+                                break; //Object found, next item?
+                            } 
                             else if (j == heldObjectArray.Length-1) //Last possible slot where we could find coinciding object
                             {
                                 allObjectsFound = false; //We reached the end of "heldObjectArray" without finding this object, so not all objects where found
@@ -67,9 +70,10 @@ public class Door : MonoBehaviour
             End:
                 if (allObjectsFound) //Held objects found and approved
                 {
-                    holdInformationScriptRef.RemoveAllHeldObjects();
+                    if (!wantsObjectsInOrder) holdInformationScriptRef.RemoveAndReorderHeldObjects(wantedObjectTypes); //Remove specific types of objects from held items (unordered case)
+                    else holdInformationScriptRef.RemoveAndReorderHeldObjectsByAmount(wantedObjectsAmount); //Remove batch held items up to wantedObjectsAmount (ordered case)
 
-                    gameBehaviourRef.AddPoints(100 * wantedObjectsAmount);
+                    gameBehaviourRef.AddPoints(100 * wantedObjectsAmount); //Add points to score depending on handed in objects amount
 
                     for (int i = 0; i < 5; i++) 
                     {
