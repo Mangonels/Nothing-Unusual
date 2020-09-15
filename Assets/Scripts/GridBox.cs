@@ -2,6 +2,8 @@
 
 public class GridBox : MonoBehaviour
 {
+    public AudioSource alarm;
+
     public GameBehaviour gameBehaviourRef; //Reference to game behaviour script
 
     public int gameOverObjects = 5;
@@ -20,6 +22,7 @@ public class GridBox : MonoBehaviour
 
     private void CapacityCheck() 
     {
+        if (currentObjectAmmount == gameOverObjects - 1) alarm.Play();
         if (currentObjectAmmount >= gameOverObjects && gameBehaviourRef.gameActive) //Box capacity exceeded
         {
             //GAME OVER

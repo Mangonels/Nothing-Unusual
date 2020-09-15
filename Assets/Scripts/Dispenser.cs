@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 public class Dispenser : MonoBehaviour
 {
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
@@ -45,7 +46,13 @@ public class Dispenser : MonoBehaviour
     //Instantly drops object dispenser (or player drop, usually marked by adjusted = true) should spawn (set adjusted for dropping close to the top of highest object)
     public void Drop()
     {
-        //Drop item normally from dispenser
+        StartCoroutine(DropAfterTime(Random.Range(0.1f, 1.5f))); //Small async function executed after random delay
+    }
+    IEnumerator DropAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        //Drop item from dispenser
         Instantiate(objectsDataRef.objectGameObjects_GridAligned[(int)objectToSpawn], transform.position, Quaternion.Euler(-90f, 0f, 0f));
         gridBoxScriptRef.IncreaseCurrentObjectAmmount();
     }
