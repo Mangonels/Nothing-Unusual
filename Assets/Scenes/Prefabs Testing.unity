@@ -5053,6 +5053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1_SIMPLE_Object_GridAligned
       objectReference: {fileID: 0}
+    - target: {fileID: 1283803685165090968, guid: 99aeecd1339790b4398e3106273dc6c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1917174491279659554, guid: 99aeecd1339790b4398e3106273dc6c4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7438,7 +7442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2183523084181522119, guid: 683e454daf42faf44ab1753c8cdaea01, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683e454daf42faf44ab1753c8cdaea01, type: 3}

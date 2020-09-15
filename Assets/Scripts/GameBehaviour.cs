@@ -27,12 +27,12 @@ public class GameBehaviour : MonoBehaviour
     [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 60f; //Threshold after which drop timeToDropThreshold is reduced
     [SerializeField] private float timeToDropThreshold = 20f;
     [SerializeField] private float timeToDropThresholdReducer = 0.6f;
-    [SerializeField] private float timeToOpenDoorThreshold = 25f;
+    [SerializeField] private float timeToOpenDoorThreshold = 20f;
 
     [SerializeField] private bool firstTimeToDropThresholdReached = true;
     [SerializeField] private float maxTimeDoorsOpen = 80f;
     [SerializeField] private float minTimeDoorsOpen = 70f;
-    [SerializeField] private int maxAmountOfObjectsRequestedPerDoor = 1;
+    [SerializeField] private int maxAmountOfObjectsRequestedPerDoor = 2;
     [SerializeField] private int minAmountOfObjectsRequestedPerDoor = 1;
     [SerializeField] private int objectsOrderMode = 0; //0 unordered only, 1, ordered and unordered, 2 ordered only
 
@@ -45,6 +45,7 @@ public class GameBehaviour : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         //Drop first item in first dispenser
         firstDispenser.GetComponent<Dispenser>().SetSpawnObject(firstObject);
@@ -83,24 +84,23 @@ public class GameBehaviour : MonoBehaviour
                 doorRequestsPhase++; //Next objects phase
                 if (doorRequestsPhase == 1)
                 {
-                    timeToOpenDoorThreshold = 20f;
-                    phaseOfDoorRequestsTimerDurationThreshold = 120f; //Phases after 0 will last 5 min instead of 2.5
+                    timeToOpenDoorThreshold = 15f;
+                    phaseOfDoorRequestsTimerDurationThreshold = 120f; //Phases after 0 will last 2 min instead of 1
+                    maxAmountOfObjectsRequestedPerDoor = 3;
                 }
                 else if (doorRequestsPhase == 2)
                 {
-                    timeToOpenDoorThreshold = 15f;
                     minTimeDoorsOpen = 55f;
-                    maxAmountOfObjectsRequestedPerDoor = 3;
+                    maxAmountOfObjectsRequestedPerDoor = 4;
                 }
                 else if (doorRequestsPhase == 3) 
                 {
                     objectsOrderMode = 2;
-                    maxAmountOfObjectsRequestedPerDoor = 4;
+                    maxAmountOfObjectsRequestedPerDoor = 5;
                 }
                 else if (doorRequestsPhase == 4)
                 {
                     maxTimeDoorsOpen = 70f;
-                    maxAmountOfObjectsRequestedPerDoor = 5;
                 }
                 else if (doorRequestsPhase == 5)
                 {
