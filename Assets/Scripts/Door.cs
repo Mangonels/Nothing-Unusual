@@ -18,11 +18,6 @@ public class Door : MonoBehaviour
     [SerializeField] private int wantedObjectsAmount = 0;
     public GameObject[] requestDisplays;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         hasBeenOpenFor += Time.deltaTime;

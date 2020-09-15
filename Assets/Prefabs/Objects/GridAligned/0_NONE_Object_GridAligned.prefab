@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dccda69414ebfa4d99d1f10a3d96f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touchFloor: {fileID: 0}
+  touchOtherObject: {fileID: 0}
   collidingGridBox: {fileID: 0}
-  objectsDataRef: {fileID: 0}
   objectType: 0

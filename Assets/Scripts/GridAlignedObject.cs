@@ -2,20 +2,23 @@
 
 public class GridAlignedObject : MonoBehaviour
 {
+    public AudioSource touchFloor;
+    public AudioSource touchOtherObject;
+
     [SerializeField] Collider collidingGridBox; //The box grid's collider the detection box for held objects is colliding with by trigger
-    public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
 
     public ObjectsData.objectTypes objectType = ObjectsData.objectTypes.NONE; //Type this object should be, with visual implications
 
-    void Start()
+    void OnCollisionEnter(Collision col)
     {
-
-    }
-
-
-    void Update()
-    {
-        
+        if (col.gameObject.tag == "PickableObject")
+        {
+            touchOtherObject.Play();
+        }
+        else if (col.gameObject.tag == "Floor")
+        {
+            touchFloor.Play();
+        }
     }
 
     void OnDestroy() //This is called when the attatched game object is destroyed, but it's also called when scene changes, and when the game is shut down. Implementation ay be ineficient in last 2 cases.        <!>

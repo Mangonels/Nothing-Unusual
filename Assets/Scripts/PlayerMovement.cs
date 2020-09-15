@@ -17,16 +17,11 @@ public class PlayerMovement : MonoBehaviour
     public int maxAirboosts = 3;
     [SerializeField] private int usedAirboosts = 0;
     [SerializeField] private Vector3 forcesMovement; //Picks up all additional speeds
-    [SerializeField] bool groundedPrevFrame; //Stores if the player was grounded the previous frame
+    [SerializeField] bool canPlayFallSound = false; //Stores if the fall sound can be played. Is set to true when airborne, and false on first grounded frame
 
     public CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
     Vector3 camdir; //Camera direction/forward vector
     Vector3 camright; //Camera right vector
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -101,13 +96,15 @@ public class PlayerMovement : MonoBehaviour
             //Apply player movement from ground impulse
             cControllerRef.Move(playerMovement * speed * Time.deltaTime);
 
-            if (groundedPrevFrame == false) {
-                Debug.Log("Fell");
+            if (canPlayFallSound) {
+                canPlayFallSound = false;
                 fall.Play();
             }
         }
         else //Character controller airborne
         {
+            canPlayFallSound = true;
+
             //Diferent movement in air
             forcesMovement.x += playerMovement.x * 0.1f;
             forcesMovement.z += playerMovement.z * 0.1f;
@@ -118,7 +115,5 @@ public class PlayerMovement : MonoBehaviour
 
         //Apply other movements derived from forces
         cControllerRef.Move(forcesMovement * Time.deltaTime);
-
-        groundedPrevFrame = cControllerRef.isGrounded; //Store current grounded status for next frame referencing
     }
 }

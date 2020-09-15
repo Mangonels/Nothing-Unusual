@@ -361,10 +361,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 20_CONNECTOR_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 4929107232456050844, guid: 91987c493998ff440af90108179972cd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5705045075636671014, guid: 91987c493998ff440af90108179972cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -602,10 +598,6 @@ PrefabInstance:
     - target: {fileID: 5368447761762989225, guid: 30e936eafa3345f4baf8bf15f6052690, type: 3}
       propertyPath: m_Name
       value: 12_RINGS_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 5368447761762989225, guid: 30e936eafa3345f4baf8bf15f6052690, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e936eafa3345f4baf8bf15f6052690, type: 3}
@@ -1226,10 +1218,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 11_NINJA_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 5721942328411189305, guid: b2c217ad5266fdf47bc218338131c5ba, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2c217ad5266fdf47bc218338131c5ba, type: 3}
 --- !u!4 &204334410 stripped
@@ -1594,10 +1582,6 @@ PrefabInstance:
     - target: {fileID: 7827247130250315263, guid: b4d13fcf9dc467a4599743934c5c2bb8, type: 3}
       propertyPath: m_Name
       value: 10_ORBOLOID_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827247130250315263, guid: b4d13fcf9dc467a4599743934c5c2bb8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4d13fcf9dc467a4599743934c5c2bb8, type: 3}
@@ -3061,10 +3045,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 18_DARK_MATTER_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 2064886886574783392, guid: a6ad1f71a65c7934883827e9fdf30fbc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ad1f71a65c7934883827e9fdf30fbc, type: 3}
 --- !u!4 &722452747 stripped
@@ -3221,10 +3201,6 @@ PrefabInstance:
     - target: {fileID: 8648484280773567651, guid: 48a5db2d364a82048ab6b027efade6e4, type: 3}
       propertyPath: m_Name
       value: 17_MAGIC_ARTIFACT_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648484280773567651, guid: 48a5db2d364a82048ab6b027efade6e4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a5db2d364a82048ab6b027efade6e4, type: 3}
@@ -3684,10 +3660,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 9_ATOM_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 3191818313854521592, guid: acd31ea7a429ad145a353319521898ef, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acd31ea7a429ad145a353319521898ef, type: 3}
 --- !u!4 &805339774 stripped
@@ -3705,10 +3677,6 @@ PrefabInstance:
     - target: {fileID: 141842272503615799, guid: d5328702831ebee45b3374b2a816a2db, type: 3}
       propertyPath: m_Name
       value: 8_TETRAS_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 141842272503615799, guid: d5328702831ebee45b3374b2a816a2db, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 773559649080576909, guid: d5328702831ebee45b3374b2a816a2db, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3882,10 +3850,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 14_PRISM_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 840453030804565002, guid: 2d62f1df42cfaf843af9e9c510091668, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d62f1df42cfaf843af9e9c510091668, type: 3}
 --- !u!4 &883875536 stripped
@@ -3908,7 +3872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &902029461
 Transform:
   m_ObjectHideFlags: 0
@@ -4276,10 +4240,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3_BASE_Object_GridAligned 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6634958370580983447, guid: a7f21134defccf942a81053eece79e85, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7f21134defccf942a81053eece79e85, type: 3}
 --- !u!4 &980292811 stripped
@@ -4436,10 +4396,6 @@ PrefabInstance:
     - target: {fileID: 3310331139485070872, guid: b3f7cf76b68b2c54495db10e5400878d, type: 3}
       propertyPath: m_Name
       value: 2_WEIGHT_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 3310331139485070872, guid: b3f7cf76b68b2c54495db10e5400878d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3f7cf76b68b2c54495db10e5400878d, type: 3}
@@ -4833,10 +4789,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0_NONE_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 5513844490889645341, guid: df84aa312f4eb3c4587b7ae832df197c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df84aa312f4eb3c4587b7ae832df197c, type: 3}
 --- !u!4 &1131655519 stripped
@@ -4898,10 +4850,6 @@ PrefabInstance:
     - target: {fileID: 963643710692637689, guid: 37427ff1a1a0aa34298e3e804a2637c2, type: 3}
       propertyPath: m_Name
       value: 5_ORB_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 963643710692637689, guid: 37427ff1a1a0aa34298e3e804a2637c2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37427ff1a1a0aa34298e3e804a2637c2, type: 3}
@@ -4987,10 +4935,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 13_POTION_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 1309681253596305764, guid: 6bc0e33dee2df4b43b5fce66ac5565ff, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1830498319154594782, guid: 6bc0e33dee2df4b43b5fce66ac5565ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5052,10 +4996,6 @@ PrefabInstance:
     - target: {fileID: 1283803685165090968, guid: 99aeecd1339790b4398e3106273dc6c4, type: 3}
       propertyPath: m_Name
       value: 1_SIMPLE_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 1283803685165090968, guid: 99aeecd1339790b4398e3106273dc6c4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1917174491279659554, guid: 99aeecd1339790b4398e3106273dc6c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5382,10 +5322,6 @@ PrefabInstance:
     - target: {fileID: 1646540845736197977, guid: eb0f6431ec21c8d4d9d3df8502599f03, type: 3}
       propertyPath: m_Name
       value: 6_FRACTAL_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 1646540845736197977, guid: eb0f6431ec21c8d4d9d3df8502599f03, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2130871678466958819, guid: eb0f6431ec21c8d4d9d3df8502599f03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5768,7 +5704,7 @@ GameObject:
   - component: {fileID: 1327246379}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7440,10 +7376,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 16_TORNADO_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 2183523084181522119, guid: 683e454daf42faf44ab1753c8cdaea01, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683e454daf42faf44ab1753c8cdaea01, type: 3}
 --- !u!4 &1758890804 stripped
@@ -8298,10 +8230,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 15_CONTAINER_Object_GridAligned
       objectReference: {fileID: 0}
-    - target: {fileID: 3071153423765405750, guid: 75de6c880ec8bcd478364151e58df2f5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75de6c880ec8bcd478364151e58df2f5, type: 3}
 --- !u!4 &1974783877 stripped
@@ -8319,10 +8247,6 @@ PrefabInstance:
     - target: {fileID: 3604089302197249730, guid: e0ca05e3d6acf0641b69552ba38e0689, type: 3}
       propertyPath: m_Name
       value: 7_PILLAR_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604089302197249730, guid: e0ca05e3d6acf0641b69552ba38e0689, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4129691511097982072, guid: e0ca05e3d6acf0641b69552ba38e0689, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8517,10 +8441,6 @@ PrefabInstance:
     - target: {fileID: 1273200121079263189, guid: b43465cc4f6445140bf87a4576685ab0, type: 3}
       propertyPath: m_Name
       value: 19_MAGNETRON_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 1273200121079263189, guid: b43465cc4f6445140bf87a4576685ab0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1936689054709560687, guid: b43465cc4f6445140bf87a4576685ab0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8781,10 +8701,6 @@ PrefabInstance:
     - target: {fileID: 8249556806907732377, guid: d2c4a6269d9ec814b854f691b4424655, type: 3}
       propertyPath: m_Name
       value: 4_SUPPORT_Object_GridAligned
-      objectReference: {fileID: 0}
-    - target: {fileID: 8249556806907732377, guid: d2c4a6269d9ec814b854f691b4424655, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8734591399822129955, guid: d2c4a6269d9ec814b854f691b4424655, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9418,7 +9334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4498788513338336905, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7964695205117459271, guid: 991ee294b82f71744884221c5cbe50e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9541,6 +9457,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5263348743062439029, guid: 80a1f6fbd2cd8cf4a9e575df91c9866a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80a1f6fbd2cd8cf4a9e575df91c9866a, type: 3}
 --- !u!1001 &5538651938851396496
@@ -9553,6 +9473,10 @@ PrefabInstance:
     - target: {fileID: 5538651937210094664, guid: 40301f25c736a494c8c851db4e4e5391, type: 3}
       propertyPath: m_Name
       value: GameBehaviour
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538651937210094664, guid: 40301f25c736a494c8c851db4e4e5391, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5538651937210094666, guid: 40301f25c736a494c8c851db4e4e5391, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9685,6 +9609,10 @@ PrefabInstance:
     - target: {fileID: 2281711454794360613, guid: 8a3cc628019038a428dd849331640b7a, type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281711454794360613, guid: 8a3cc628019038a428dd849331640b7a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3138071446258840948, guid: 8a3cc628019038a428dd849331640b7a, type: 3}
       propertyPath: m_Materials.Array.data[0]

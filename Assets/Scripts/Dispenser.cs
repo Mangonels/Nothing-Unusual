@@ -16,11 +16,6 @@ public class Dispenser : MonoBehaviour
     //private float timeToDrop = 2.0f; //When this threshold is exceeded, an objectToSpawn is dropped
     //private float timer = 2.0f; //When this value reaches "timeToDrop", an objectToSpawn is dropped, and "timer" is reset
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
 

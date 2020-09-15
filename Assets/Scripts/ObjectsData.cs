@@ -37,14 +37,4 @@ public class ObjectsData : MonoBehaviour
     //Scenario Instanced Prefab/GameObjects
     public GameObject[] doors;
     public GameObject[] dispenserGrid;
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
 }

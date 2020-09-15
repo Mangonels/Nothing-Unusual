@@ -17,10 +17,6 @@ public class PlayerHolding : MonoBehaviour
     public float adjustedDropHeight = 0.6f; //Slight extra height applied to player item dropping above the highest item on the GridBox stack
 
     public CinemachineVirtualCamera cVCRef; //Cinemachine virtual camera reference
-    void Start()
-    {
-
-    }
 
     void Update()
     {

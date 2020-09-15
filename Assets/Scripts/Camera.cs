@@ -12,11 +12,6 @@ public class Camera : MonoBehaviour
     [SerializeField] private float maxCameraSpeed = 800f;
     [SerializeField] private float minCameraSpeed = 50f;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         //Fov adjuster with mouse scroll

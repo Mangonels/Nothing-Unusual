@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
+    public AudioSource trueLoop;
+    [SerializeField] private float realMusicTimer = 0.0f;
+    [SerializeField] private float realMusicTrheshold = 90.0f;
+    [SerializeField] private bool doTimer = true;
+
+
     public ObjectsData objectsDataRef; //Reference to data from objects such as their names and display materials
     public GameObject gameOverWindowRef;
 
@@ -16,17 +22,21 @@ public class GameBehaviour : MonoBehaviour
     [SerializeField] private float phaseOfDropSpeedTimer = 0.0f;
     [SerializeField] private float phaseOfDoorRequestsTimer = 0.0f;
     [SerializeField] private float newDropTimer = 0.0f;
+    [SerializeField] private float newDropExtraTimer = 0.0f;
     [SerializeField] private float newDoorTimer = 0.0f;
 
     [SerializeField] private int percentileChanceOfDroppingWhenItsTime = 85;
+    [SerializeField] private int percentileChanceOfDroppingExtraWhenItsTime = 65;
     [SerializeField] private int percentileChanceOfDoorOpeningWhenItsTime = 90;
 
     //[SerializeField] private int speedPhase = 0;
     [SerializeField] private int doorRequestsPhase = 0;
-    [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 120f; //Threshold after which drop timeToDropThreshold is reduced
-    [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 60f; //Threshold after which drop timeToDropThreshold is reduced
+    [SerializeField] private float phaseOfSpeedTimerDurationThreshold = 90f; //Threshold after which drop timeToDropThreshold is reduced
+    [SerializeField] private float phaseOfDoorRequestsTimerDurationThreshold = 45f; //Threshold after which drop timeToDropThreshold is reduced
     [SerializeField] private float timeToDropThreshold = 20f;
+    [SerializeField] private float timeToDropExtraThreshold = 25f;
     [SerializeField] private float timeToDropThresholdReducer = 0.6f;
+    [SerializeField] private float timeToDropExtraThresholdReducer = 0.8f;
     [SerializeField] private float timeToOpenDoorThreshold = 20f;
 
     [SerializeField] private bool firstTimeToDropThresholdReached = true;
@@ -58,18 +68,31 @@ public class GameBehaviour : MonoBehaviour
 
     void Update()
     {
+        if (doTimer) 
+        {
+            realMusicTimer += Time.deltaTime;
+
+            if (realMusicTimer > realMusicTrheshold) 
+            {
+                trueLoop.Play();
+                doTimer = false;
+            }
+        }
+
         if (gameActive)
         {
             //totalTimer += Time.deltaTime;
             phaseOfDropSpeedTimer += Time.deltaTime;
             phaseOfDoorRequestsTimer += Time.deltaTime;
             newDropTimer += Time.deltaTime;
+            newDropExtraTimer += Time.deltaTime;
             newDoorTimer += Time.deltaTime;
 
             if (phaseOfDropSpeedTimer >= phaseOfSpeedTimerDurationThreshold)
             {
                 phaseOfDropSpeedTimer = 0.0f; //Reset timer
-                timeToDropThreshold *= timeToDropThresholdReducer; //Reduce time in between drops (difficulty increase)
+                timeToDropThreshold *= timeToDropThresholdReducer; //Reduce time in between drops
+                timeToDropExtraThreshold *= timeToDropExtraThresholdReducer; //Reduce time in between extra drops
                 //speedPhase++; //Next speed phase
             }
 
@@ -85,7 +108,7 @@ public class GameBehaviour : MonoBehaviour
                 if (doorRequestsPhase == 1)
                 {
                     timeToOpenDoorThreshold = 15f;
-                    phaseOfDoorRequestsTimerDurationThreshold = 120f; //Phases after 0 will last 2 min instead of 1
+                    phaseOfDoorRequestsTimerDurationThreshold = 90f; //Phases after 0 will last 2 min instead of 1
                     maxAmountOfObjectsRequestedPerDoor = 3;
                 }
                 else if (doorRequestsPhase == 2)
@@ -168,13 +191,31 @@ public class GameBehaviour : MonoBehaviour
                         int randomDispenser = Random.Range(0, objectsDataRef.dispenserGrid.Length); //Choose a random dispenser by Grid Slot number
                         ObjectsData.objectTypes spawnedObject = (ObjectsData.objectTypes)Random.Range(1, objectsDataRef.objectGameObjects_GridAligned.Length);
                         objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().SetSpawnObject(spawnedObject); //Assign random object (NONE not included) to spawn in randomly selected dispenser
-                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().Drop(); //Tell randomly selected dispenser to drop randomly selected and assigned item
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().Drop(); //Tell randomly selected dispenser to drop randomly selected and assigned object
                         doorAccountableSpawnedObjects.Add(spawnedObject);
                     }
                 }
-
             }
-            if (newDoorTimer >= timeToOpenDoorThreshold) //It's time to open another door
+
+            if (newDropExtraTimer >= timeToDropExtraThreshold) //It's time to drop an item on a random tile
+            {
+                newDropExtraTimer = 0.0f;
+
+                if (Random.Range(1, 100) < percentileChanceOfDroppingExtraWhenItsTime) //Reduced chance of dropping extra depending on "percentileChanceOfDroppingExtraWhenItsTime"?
+                {
+                    int randomAmount = Random.Range(1, 3);
+                    for (int i = 0; i < randomAmount; i++) //Drop 1 to 3 objects
+                    {
+                        int randomDispenser = Random.Range(0, objectsDataRef.dispenserGrid.Length); //Choose a random dispenser by Grid Slot number
+                        ObjectsData.objectTypes spawnedObject = (ObjectsData.objectTypes)Random.Range(1, objectsDataRef.objectGameObjects_GridAligned.Length);
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().SetSpawnObject(spawnedObject); //Assign random object (NONE not included) to spawn in randomly selected dispenser
+                        objectsDataRef.dispenserGrid[randomDispenser].GetComponentInChildren<Dispenser>().Drop(); //Tell randomly selected dispenser to drop randomly selected and assigned object
+                        doorAccountableSpawnedObjects.Add(spawnedObject);
+                    }
+                }
+            }
+
+                if (newDoorTimer >= timeToOpenDoorThreshold) //It's time to open another door
             {
                 newDoorTimer = 0.0f;
                 if (Random.Range(1, 100) < percentileChanceOfDoorOpeningWhenItsTime) //Reduced chance of door opening depending on "percentileChanceOfDoorOpeningWhenItsTime"? [IMPORTANT] Already open doors oclude doors from opening (if they are still open)

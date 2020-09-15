@@ -7,16 +7,6 @@ public class GridBox : MonoBehaviour
     public int gameOverObjects = 5;
     [SerializeField] private int currentObjectAmmount = 0;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-
-    }
-
     public void IncreaseCurrentObjectAmmount() 
     { 
         currentObjectAmmount++;

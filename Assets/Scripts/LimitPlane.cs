@@ -5,11 +5,6 @@ public class LimitPlane : MonoBehaviour
     public Transform playerTransformRef;
     public Color color;
     [SerializeField] private float alphaValue;
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         //float height = playerTransformRef.position.y;
